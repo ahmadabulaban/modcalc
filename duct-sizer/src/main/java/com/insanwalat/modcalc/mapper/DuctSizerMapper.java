@@ -8,6 +8,8 @@ import com.insanwalat.modcalc.module.response.DuctSizerCalcResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Objects.isNull;
+
 public class DuctSizerMapper {
 
     private DuctSizerCalcInput input;
@@ -52,6 +54,8 @@ public class DuctSizerMapper {
         input.setSizingCriteria(request.getFlowRateAndSizingCriteria().getSizingCriteria());
         Double allowedPressureInput = request.getFlowRateAndSizingCriteria().getAllowedPressureInput();
         input.setAllowedPressureInput(allowedPressureInput);
+        if (isNull(allowedPressureInput))
+            allowedPressureInput = (double) 0;
         double pMax;
         if (uu == 1)
             pMax = allowedPressureInput;
@@ -66,6 +70,8 @@ public class DuctSizerMapper {
         input.setPressureUnit(pressureUnit);
         Double allowedVelocityInput = request.getFlowRateAndSizingCriteria().getAllowedVelocityInput();
         input.setAllowedVelocityInput(allowedVelocityInput);
+        if (isNull(allowedVelocityInput))
+            allowedVelocityInput = (double) 0;
         double vMax;
         if (uu == 1)
             vMax = allowedVelocityInput;
