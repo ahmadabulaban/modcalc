@@ -17,7 +17,7 @@ public class DuctSizerServiceImpl implements DuctSizerService {
 
     @Override
     public DuctSizerCalcResponse calculate(DuctSizerCalcRequest request) {
-        //validation.validateDuctSizerCalcRequest(request);
+        validation.validateDuctSizerCalcRequest(request);
         DuctSizerCalcInput input = mapper.mapRequestToInput(request);
         DuctSizerCalcOutput output = algorithm.doCalculations(input);
         DuctSizerCalcResponse response = mapper.mapOutputToResponse(output);

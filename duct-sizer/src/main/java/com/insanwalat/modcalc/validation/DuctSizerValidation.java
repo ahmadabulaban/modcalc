@@ -25,29 +25,33 @@ public class DuctSizerValidation {
     }
 
     private void validateAllowedVelocityInput(DuctSizerCalcRequest request) {
-        Double allowedVelocityInput = request.getFlowRateAndSizingCriteria().getAllowedVelocityInput();
-        if (isNull(allowedVelocityInput))
-            throw new InvalidDuctSizerCalcInputException("Null allowed velocity input value");
-        double v_max;
-        if (request.getUnits().getUu() == 1)
-            v_max = allowedVelocityInput;
-        else
-            v_max = allowedVelocityInput / 196.8;
-        if (!(v_max >= 0.1 && v_max <= 9999))
-            throw new InvalidDuctSizerCalcInputException("Invalid v_max value");
+        if (request.getFlowRateAndSizingCriteria().getSizingCriteria() == 2) {
+            Double allowedVelocityInput = request.getFlowRateAndSizingCriteria().getAllowedVelocityInput();
+            if (isNull(allowedVelocityInput))
+                throw new InvalidDuctSizerCalcInputException("Null allowed velocity input value");
+            double v_max;
+            if (request.getUnits().getUu() == 1)
+                v_max = allowedVelocityInput;
+            else
+                v_max = allowedVelocityInput / 196.8;
+            if (!(v_max >= 0.1 && v_max <= 9999))
+                throw new InvalidDuctSizerCalcInputException("Invalid v_max value");
+        }
     }
 
     private void validateAllowedPressureInput(DuctSizerCalcRequest request) {
-        Double allowedPressureInput = request.getFlowRateAndSizingCriteria().getAllowedPressureInput();
-        if (isNull(allowedPressureInput))
-            throw new InvalidDuctSizerCalcInputException("Null allowed pressure input value");
-        double p_max;
-        if (request.getUnits().getUu() == 1)
-            p_max = allowedPressureInput;
-        else
-            p_max = allowedPressureInput * 8.17;
-        if (!(p_max >= 0.1 && p_max <= 9999))
-            throw new InvalidDuctSizerCalcInputException("Invalid p_max value");
+        if (request.getFlowRateAndSizingCriteria().getSizingCriteria() == 1) {
+            Double allowedPressureInput = request.getFlowRateAndSizingCriteria().getAllowedPressureInput();
+            if (isNull(allowedPressureInput))
+                throw new InvalidDuctSizerCalcInputException("Null allowed pressure input value");
+            double p_max;
+            if (request.getUnits().getUu() == 1)
+                p_max = allowedPressureInput;
+            else
+                p_max = allowedPressureInput * 8.17;
+            if (!(p_max >= 0.1 && p_max <= 9999))
+                throw new InvalidDuctSizerCalcInputException("Invalid p_max value");
+        }
 
     }
 
