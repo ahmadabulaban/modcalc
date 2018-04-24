@@ -19,6 +19,9 @@ public class DuctSizerCalcResponse {
     @FieldDescription(uiField = "o3", note = "duct dimension 1 (active only if shp = 1)")
     private Double o3;
 
+    @FieldDescription(uiField = "tx3", note = "Flow Units")
+    private String tx3;
+
     @FieldDescription(uiField = "o4", note = "duct dimension 2 (active only if shp = 1)")
     private Double o4;
 
@@ -37,12 +40,13 @@ public class DuctSizerCalcResponse {
     public DuctSizerCalcResponse() {
     }
 
-    public DuctSizerCalcResponse(Double o1, String tx1, Double o2, String tx2, Double o3, Double o4, Double o5, String tx5, Double o6, String tx6) {
+    public DuctSizerCalcResponse(Double o1, String tx1, Double o2, String tx2, Double o3, String tx3, Double o4, Double o5, String tx5, Double o6, String tx6) {
         this.o1 = o1;
         this.tx1 = tx1;
         this.o2 = o2;
         this.tx2 = tx2;
         this.o3 = o3;
+        this.tx3 = tx3;
         this.o4 = o4;
         this.o5 = o5;
         this.tx5 = tx5;
@@ -88,6 +92,14 @@ public class DuctSizerCalcResponse {
 
     public void setO3(Double o3) {
         this.o3 = o3;
+    }
+
+    public String getTx3() {
+        return tx3;
+    }
+
+    public void setTx3(String tx3) {
+        this.tx3 = tx3;
     }
 
     public Double getO4() {

@@ -35,7 +35,7 @@ public class DuctSizerValidation {
             else
                 v_max = allowedVelocityInput / 196.8;
             if (!(v_max >= 0.1 && v_max <= 9999))
-                throw new InvalidDuctSizerCalcInputException("Invalid v_max value");
+                throw new InvalidDuctSizerCalcInputException("Invalid allowed velocity input value");
         }
     }
 
@@ -50,7 +50,7 @@ public class DuctSizerValidation {
             else
                 p_max = allowedPressureInput * 8.17;
             if (!(p_max >= 0.1 && p_max <= 9999))
-                throw new InvalidDuctSizerCalcInputException("Invalid p_max value");
+                throw new InvalidDuctSizerCalcInputException("Invalid allowed pressure input value");
         }
 
     }
@@ -85,9 +85,9 @@ public class DuctSizerValidation {
     private void validateShp(DuctSizerCalcRequest request) {
         Integer shp = request.getFlowRateAndSizingCriteria().getShp();
         if (isNull(shp))
-            throw new InvalidDuctSizerCalcInputException("Null shp value");
+            throw new InvalidDuctSizerCalcInputException("Null duct shape value");
         if (!(shp == 1 || shp == 2))
-            throw new InvalidDuctSizerCalcInputException("Invalid shp value");
+            throw new InvalidDuctSizerCalcInputException("Invalid duct shape value");
     }
 
     private void validateRateInput(DuctSizerCalcRequest request) {
@@ -96,7 +96,7 @@ public class DuctSizerValidation {
             throw new InvalidDuctSizerCalcInputException("Null rate input value");
         double q = rateInput * request.getUnits().getUf();
         if (!(q >= 0 && q <= 200000))
-            throw new InvalidDuctSizerCalcInputException("Invalid q value");
+            throw new InvalidDuctSizerCalcInputException("Invalid rate input value");
     }
 
     private void validateThicknessInput(DuctSizerCalcRequest request) {

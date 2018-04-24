@@ -17,11 +17,11 @@ public class DuctSizerMapper {
 
     {
         ufMap.put((double) 1, "l/s");
-        ufMap.put((double) 1000, "m3/s");
-        ufMap.put(0.277778, "m3/h");
-        ufMap.put(0.4719, "ft3/m");
-        ufMap.put(28.31684, "ft3/s");
-        ufMap.put(0.007865, "ft3/hr");
+        ufMap.put((double) 1000, "m^3/s");
+        ufMap.put(0.277778, "m^3/h");
+        ufMap.put(0.4719, "CFM (ft^3/m)");
+        ufMap.put(28.31684, "ft^3/s");
+        ufMap.put(0.007865, "ft^3/hr");
     }
 
     public DuctSizerCalcInput mapRequestToInput(DuctSizerCalcRequest request) {
@@ -138,6 +138,7 @@ public class DuctSizerMapper {
         response.setO2(output.getO2());
         response.setTx2(output.getTx2());
         response.setO3(output.getO3());
+        response.setTx3(output.getTx3());
         response.setO4(output.getO4());
         response.setO5(output.getO5());
         response.setTx5(output.getTx5());

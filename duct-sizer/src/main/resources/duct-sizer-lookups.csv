@@ -1,0 +1,33 @@
+ui-field|key|value|defaultOption|group
+uu|SI|1|true|1
+uu|Imperial|2|false|2
+uf|l/s|1|true|1
+uf|m^3/s|1000|false|1
+uf|m^3/h|0.277778|false|1
+uf|CFM (ft^3/m)|0.4719|true|2
+uf|ft^3/s|28.31684|false|2
+uf|ft^3/hr|0.007865|false|2
+temperatureUnit|C|1|true|1
+temperatureUnit|F|2|true|2
+eps|Galvanized steel, longitudinal seams < 4 ft (1.2m) joints|0.000152439024390244|true|0
+eps|Uncoated carbon steel, clean|0.0000304878048780488|false|0
+eps|PVC plastic pipe|0.0000304878048780488|false|0
+eps|Aluminum|0.0000304878048780488|false|0
+eps|Galvanized steel, longitudinal seams, ≥ 4 ft (1.2m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, continuously rolled, spiral seams, 10 ft (3m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, spiral seam with 1, 2, and 3 ribs, 12 ft (3.6m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, spiral, corrugated, 10 ft (3m) joints|0.0000914634146341463|false|0
+eps|Fibrous glass duct, rigid|0.0000914634146341463|false|0
+eps|Fibrous glass duct liner, air side with facing material|0.0000914634146341463|false|0
+eps|Flexible duct, fabric and wire, fully extended|0.0000914634146341463|false|0
+eps|Fibrous glass duct liner, air side spray coated|0.00304878048780488|false|0
+eps|Flexible duct, metallic|0.00304878048780488|false|0
+eps|Concrete|0.00304878048780488|false|0
+dimensionUnit|mm|1|true|1
+dimensionUnit|inch|2|true|2
+ductShape|Circular|2|true|0
+ductShape|Rectangular|1|false|0
+pressureUnit|Pa/m|1|true|1
+pressureUnit|inch H2O/100ft|2|true|2
+velocityUnit|m/s|1|true|1
+velocityUnit|fpm|2|true|2

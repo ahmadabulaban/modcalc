@@ -7,6 +7,7 @@ public class DuctSizerCalcOutput {
     private Double o2;
     private String tx2;
     private Double o3;
+    private String tx3;
     private Double o4;
     private Double o5;
     private String tx5;
@@ -16,12 +17,13 @@ public class DuctSizerCalcOutput {
     public DuctSizerCalcOutput() {
     }
 
-    public DuctSizerCalcOutput(Double o1, String tx1, Double o2, String tx2, Double o3, Double o4, Double o5, String tx5, Double o6, String tx6) {
+    public DuctSizerCalcOutput(Double o1, String tx1, Double o2, String tx2, Double o3, String tx3, Double o4, Double o5, String tx5, Double o6, String tx6) {
         this.o1 = o1;
         this.tx1 = tx1;
         this.o2 = o2;
         this.tx2 = tx2;
         this.o3 = o3;
+        this.tx3 = tx3;
         this.o4 = o4;
         this.o5 = o5;
         this.tx5 = tx5;
@@ -67,6 +69,14 @@ public class DuctSizerCalcOutput {
 
     public void setO3(Double o3) {
         this.o3 = o3;
+    }
+
+    public String getTx3() {
+        return tx3;
+    }
+
+    public void setTx3(String tx3) {
+        this.tx3 = tx3;
     }
 
     public Double getO4() {
