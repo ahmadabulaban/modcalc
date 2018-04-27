@@ -2,13 +2,22 @@ package com.insanwalat.modcalc.validation;
 
 import com.insanwalat.modcalc.exceptions.InvalidDuctSizerCalcInputException;
 import com.insanwalat.modcalc.module.request.DuctSizerCalcRequest;
+import com.insanwalat.modcalc.utils.DuctSizerLookupsParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
+@Component
 public class DuctSizerValidation {
+
+    @Autowired
+    private DuctSizerLookupsParser ductSizerLookupsParser;
 
     public void validateDuctSizerCalcRequest(DuctSizerCalcRequest request) {
         validateUu(request);
@@ -86,7 +95,10 @@ public class DuctSizerValidation {
         Integer shp = request.getFlowRateAndSizingCriteria().getShp();
         if (isNull(shp))
             throw new InvalidDuctSizerCalcInputException("Null duct shape value");
-        if (!(shp == 1 || shp == 2))
+        List<Integer> ductShapeList = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("ductShape")).mapToInt(e -> e.getValue().intValue())
+                .boxed().collect(Collectors.toList());
+        if (!ductShapeList.contains(shp))
             throw new InvalidDuctSizerCalcInputException("Invalid duct shape value");
     }
 
@@ -116,13 +128,10 @@ public class DuctSizerValidation {
         Double eps = request.getDuctType().getEps();
         if (isNull(eps))
             throw new InvalidDuctSizerCalcInputException("Null eps value");
-        List<Double> validValues = new ArrayList<>();
-        validValues.add(0.0000304878048780488);
-        validValues.add(0.0000914634146341463);
-        validValues.add(0.000152439024390244);
-        validValues.add(0.000914634146341463);
-        validValues.add(0.00304878048780488);
-        if (!validValues.contains(eps))
+        List<Double> epsList = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("eps")).mapToDouble(e -> e.getValue())
+                .boxed().collect(Collectors.toList());
+        if (!epsList.contains(eps))
             throw new InvalidDuctSizerCalcInputException("Invalid eps value");
     }
 
@@ -145,17 +154,17 @@ public class DuctSizerValidation {
         Integer uu = request.getUnits().getUu();
         if (isNull(uf))
             throw new InvalidDuctSizerCalcInputException("Null uf value");
-        List<Double> validValues = new ArrayList<>();
-        validValues.add((double) 1);
-        validValues.add((double) 1000);
-        validValues.add(0.277778);
-        if (uu == 1 && !validValues.contains(uf))
+        List<Double> ufGroup1List = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("uf") && e.getGroup() == 1)
+                .mapToDouble(e -> e.getValue())
+                .boxed().collect(Collectors.toList());
+        if (uu == 1 && !ufGroup1List.contains(uf))
             throw new InvalidDuctSizerCalcInputException("Invalid uf value");
-        validValues.clear();
-        validValues.add(0.4719);
-        validValues.add(28.31684);
-        validValues.add(0.007865);
-        if (uu == 2 && !validValues.contains(uf))
+        List<Double> ufGroup2List = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("uf") && e.getGroup() == 2)
+                .mapToDouble(e -> e.getValue())
+                .boxed().collect(Collectors.toList());
+        if (uu == 2 && !ufGroup2List.contains(uf))
             throw new InvalidDuctSizerCalcInputException("Invalid uf value");
     }
 
@@ -163,10 +172,10 @@ public class DuctSizerValidation {
         Integer uu = request.getUnits().getUu();
         if (isNull(uu))
             throw new InvalidDuctSizerCalcInputException("Null uu value");
-        List<Integer> validValues = new ArrayList<>();
-        validValues.add(1);
-        validValues.add(2);
-        if (!validValues.contains(uu))
+        List<Integer> uuList = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("uu")).mapToInt(e -> e.getValue().intValue())
+                .boxed().collect(Collectors.toList());
+        if (!uuList.contains(uu))
             throw new InvalidDuctSizerCalcInputException("Invalid uu value");
     }
 }

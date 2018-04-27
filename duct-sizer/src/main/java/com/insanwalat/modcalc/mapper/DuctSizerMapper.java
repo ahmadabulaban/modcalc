@@ -1,28 +1,29 @@
 package com.insanwalat.modcalc.mapper;
 
 import com.insanwalat.modcalc.module.input.DuctSizerCalcInput;
+import com.insanwalat.modcalc.module.lookup.DuctSizerLookup;
 import com.insanwalat.modcalc.module.output.DuctSizerCalcOutput;
 import com.insanwalat.modcalc.module.request.DuctSizerCalcRequest;
 import com.insanwalat.modcalc.module.response.DuctSizerCalcResponse;
+import com.insanwalat.modcalc.module.response.DuctSizerLookupResponse;
+import com.insanwalat.modcalc.utils.DuctSizerLookupsParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
 
+@Component
 public class DuctSizerMapper {
 
-    private DuctSizerCalcInput input;
-    private Map<Double, String> ufMap = new HashMap<>();
+    @Autowired
+    private DuctSizerLookupsParser ductSizerLookupsParser;
 
-    {
-        ufMap.put((double) 1, "l/s");
-        ufMap.put((double) 1000, "m^3/s");
-        ufMap.put(0.277778, "m^3/h");
-        ufMap.put(0.4719, "CFM (ft^3/m)");
-        ufMap.put(28.31684, "ft^3/s");
-        ufMap.put(0.007865, "ft^3/hr");
-    }
+    private DuctSizerCalcInput input;
 
     public DuctSizerCalcInput mapRequestToInput(DuctSizerCalcRequest request) {
         input = new DuctSizerCalcInput();
@@ -62,11 +63,10 @@ public class DuctSizerMapper {
         else
             pMax = allowedPressureInput * 8.17;
         input.setpMax(pMax);
-        String pressureUnit;
-        if (uu == 1)
-            pressureUnit = "Pa/m";
-        else
-            pressureUnit = "inch H2O/100ft";
+        Map<Integer, String> pressureUnitMap = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("pressureUnit"))
+                .collect(Collectors.toMap(DuctSizerLookup::getGroup, DuctSizerLookup::getKey));
+        String pressureUnit = pressureUnitMap.get(uu);
         input.setPressureUnit(pressureUnit);
         Double allowedVelocityInput = request.getFlowRateAndSizingCriteria().getAllowedVelocityInput();
         input.setAllowedVelocityInput(allowedVelocityInput);
@@ -78,11 +78,10 @@ public class DuctSizerMapper {
         else
             vMax = allowedVelocityInput / 196.8;
         input.setvMax(vMax);
-        String velocityUnit;
-        if (uu == 1)
-            velocityUnit = "m/s";
-        else
-            velocityUnit = "fpm";
+        Map<Integer, String> velocityUnitMap = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("velocityUnit"))
+                .collect(Collectors.toMap(DuctSizerLookup::getGroup, DuctSizerLookup::getKey));
+        String velocityUnit = velocityUnitMap.get(uu);
         input.setVelocityUnit(velocityUnit);
 
     }
@@ -98,11 +97,10 @@ public class DuctSizerMapper {
             thickness = thicknessInput * 25.4;
         input.setThicknessInput(thicknessInput);
         input.setThickness(thickness);
-        String dimensionUnit;
-        if (uu == 1)
-            dimensionUnit = "mm";
-        else
-            dimensionUnit = "inch";
+        Map<Integer, String> dimensionUnitMap = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("dimensionUnit"))
+                .collect(Collectors.toMap(DuctSizerLookup::getGroup, DuctSizerLookup::getKey));
+        String dimensionUnit = dimensionUnitMap.get(uu);
         input.setDimensionUnit(dimensionUnit);
     }
 
@@ -116,11 +114,10 @@ public class DuctSizerMapper {
             temperature = (temperatureInput - 32) / 1.8;
         input.setTemperatureInput(temperatureInput);
         input.setTemperature(temperature);
-        String temperatureUnit;
-        if (uu == 1)
-            temperatureUnit = "C";
-        else
-            temperatureUnit = "F";
+        Map<Integer, String> temperatureUnitMap = ductSizerLookupsParser.getDataList().stream()
+                .filter(e -> e.getUiField().equals("temperatureUnit"))
+                .collect(Collectors.toMap(DuctSizerLookup::getGroup, DuctSizerLookup::getKey));
+        String temperatureUnit = temperatureUnitMap.get(uu);
         input.setTemperatureUnit(temperatureUnit);
     }
 
@@ -128,22 +125,30 @@ public class DuctSizerMapper {
         input.setUu(request.getUnits().getUu());
         Double uf = request.getUnits().getUf();
         input.setUf(uf);
-        input.setUfUnit(ufMap.get(uf));
+        String ufUnit = ductSizerLookupsParser.getDataList().stream().filter(e -> e.getUiField().equals("uf")
+                && e.getValue().equals(uf)).findFirst().get().getKey();
+        input.setUfUnit(ufUnit);
     }
 
     public DuctSizerCalcResponse mapOutputToResponse(DuctSizerCalcOutput output) {
-        DuctSizerCalcResponse response = new DuctSizerCalcResponse();
-        response.setO1(output.getO1());
-        response.setTx1(output.getTx1());
-        response.setO2(output.getO2());
-        response.setTx2(output.getTx2());
-        response.setO3(output.getO3());
-        response.setTx3(output.getTx3());
-        response.setO4(output.getO4());
-        response.setO5(output.getO5());
-        response.setTx5(output.getTx5());
-        response.setO6(output.getO6());
-        response.setTx6(output.getTx6());
-        return response;
+        return new DuctSizerCalcResponse(output.getO1(),
+                output.getTx1(),
+                output.getO2(),
+                output.getTx2(),
+                output.getO3(),
+                output.getTx3(),
+                output.getO4(),
+                output.getO5(),
+                output.getTx5(),
+                output.getO6(),
+                output.getTx6());
+    }
+
+    public DuctSizerLookupResponse mapLookupToLookupResponse(DuctSizerLookup ductSizerLookup) {
+        return new DuctSizerLookupResponse(ductSizerLookup.getUiField(),
+                ductSizerLookup.getKey(),
+                ductSizerLookup.getValue(),
+                ductSizerLookup.getDefaultOption(),
+                ductSizerLookup.getGroup());
     }
 }
