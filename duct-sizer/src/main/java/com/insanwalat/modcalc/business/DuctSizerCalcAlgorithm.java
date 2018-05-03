@@ -35,7 +35,7 @@ public class DuctSizerCalcAlgorithm {
             if (uu == 1)
                 o2 = d;
             else
-                o2 = d * 25;
+                o2 = d / 25.4;
             output.setO2(o2);
             output.setTx2(input.getDimensionUnit());
         }
@@ -45,7 +45,7 @@ public class DuctSizerCalcAlgorithm {
             if (uu == 1)
                 o4 = dim2;
             else
-                o4 = dim2 * 25;
+                o4 = dim2 / 25.4;
             output.setO4(o4);
             output.setTx3(input.getDimensionUnit());
         }
