@@ -11,10 +11,12 @@ import com.insanwalat.modcalc.module.response.DuctSizerCalcResponse;
 import com.insanwalat.modcalc.service.DuctSizerService;
 import com.insanwalat.modcalc.validation.DuctSizerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class DuctSizerServiceImpl implements DuctSizerService {
 
     private DuctSizerCalcAlgorithm algorithm = new DuctSizerCalcAlgorithm();

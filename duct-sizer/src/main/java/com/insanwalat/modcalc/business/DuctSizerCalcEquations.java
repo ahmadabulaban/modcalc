@@ -118,9 +118,9 @@ public class DuctSizerCalcEquations {
     public Double size_v_rec(Double v_max, Double q, Double dim1, Double t) {
         Double dim2;
         Double dimension1 = ceil(dim1 / 10.0) * 10;
-        Double d1 = dimension1 - t;
+        Double d1 = dimension1 - 2 * t;
         Double d2 = 1000 * q / (v_max * d1);
-        Double dimension2 = d2 + t;
+        Double dimension2 = d2 + 2 * t;
         dim2 = ceil(dimension2 / 10.0) * 10;
         return dim2;
     }

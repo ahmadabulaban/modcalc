@@ -145,7 +145,7 @@ public class DuctSizerValidation {
             temperature = temperatureInput;
         else
             temperature = (temperatureInput - 32) / 1.8;
-        if (!(temperature >= -20 && temperature <= 80))
+        if (!(temperature >= -20 && temperature <= 100))
             throw new InvalidDuctSizerCalcInputException("Invalid temperature value");
     }
 

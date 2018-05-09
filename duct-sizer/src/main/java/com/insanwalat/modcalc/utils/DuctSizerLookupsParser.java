@@ -17,7 +17,7 @@ import java.util.*;
 @Component
 public class DuctSizerLookupsParser {
 
-    private URL ductSizerLookupDataPath = getClass().getResource("/duct-sizer-lookups.csv");
+    private URL ductSizerLookupDataPath = getClass().getClassLoader().getResource("duct-sizer-resources/duct-sizer-lookups.csv");
     private List<DuctSizerLookup> dataList = new ArrayList<>();
 
     public DuctSizerLookupsParser() {

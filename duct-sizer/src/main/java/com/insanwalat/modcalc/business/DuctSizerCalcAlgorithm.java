@@ -53,21 +53,28 @@ public class DuctSizerCalcAlgorithm {
         if (uu == 1)
             o5 = v;
         else
-            o5 = v * 190.65;
+            o5 = v * 196.8;
         output.setO5(o5);
         output.setTx5(input.getVelocityUnit());
         double o6;
         if (uu == 1)
             o6 = pd_st;
         else
-            o6 = pd_st * 8.17;
+            o6 = pd_st / 8.17;
         output.setO6(o6);
         output.setTx6(input.getPressureUnit());
     }
 
     private void calculatePressureDrop(DuctSizerCalcInput input) {
         Double l = (double) 1;
-        Double dh = d - 2 * input.getThickness();
+        Double dh = (double) 0;
+        if (input.getShp() == 1) {
+            dh = 4 * (input.getDim1() - 2 * input.getThickness()) * (dim2 - 2 * input.getThickness())
+                    / (2 * input.getDim1() + 2 * dim2 - 4 * input.getThickness());
+        }
+        if (input.getShp() == 2) {
+            dh = d - 2 * input.getThickness();
+        }
         pd_st = equations.str_duct_pd(rho, vis, dh, v, input.getEps(), l);
     }
 

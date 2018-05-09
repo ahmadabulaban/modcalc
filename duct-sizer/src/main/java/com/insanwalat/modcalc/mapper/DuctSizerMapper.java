@@ -10,6 +10,8 @@ import com.insanwalat.modcalc.utils.DuctSizerLookupsParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -131,16 +133,16 @@ public class DuctSizerMapper {
     }
 
     public DuctSizerCalcResponse mapOutputToResponse(DuctSizerCalcOutput output) {
-        return new DuctSizerCalcResponse(output.getO1(),
+        return new DuctSizerCalcResponse(round(output.getO1(), 1),
                 output.getTx1(),
-                output.getO2(),
+                round(output.getO2(), 1),
                 output.getTx2(),
-                output.getO3(),
+                round(output.getO3(), 1),
                 output.getTx3(),
-                output.getO4(),
-                output.getO5(),
+                round(output.getO4(), 1),
+                round(output.getO5(), 2),
                 output.getTx5(),
-                output.getO6(),
+                round(output.getO6(), 2),
                 output.getTx6());
     }
 
@@ -150,5 +152,14 @@ public class DuctSizerMapper {
                 ductSizerLookup.getValue(),
                 ductSizerLookup.getDefaultOption(),
                 ductSizerLookup.getGroup());
+    }
+
+    private Double round(Double value, Integer places) {
+        if (isNull(value)) return null;
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }
