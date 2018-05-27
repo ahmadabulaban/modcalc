@@ -1,0 +1,76 @@
+ui-field|key|value|defaultOption|group
+uu|SI|1|true|0
+uu|Imperial|2|false|0
+uf|l/s|1|true|1
+uf|m^3/s|1000|false|1
+uf|m^3/h|0.277778|false|1
+uf|CFM (ft^3/m)|0.4719|true|2
+uf|ft^3/s|28.31684|false|2
+uf|ft^3/hr|0.007865|false|2
+ul|m|1|true|1
+ul|mm|0.001|false|1
+ul|yd|0.9144|true|2
+ul|ft|0.3048|false|2
+ul|inch|0.0254|false|2
+temperatureUnit|C|1|true|1
+temperatureUnit|F|2|true|2
+eps|Galvanized steel, longitudinal seams < 4 ft (1.2m) joints|0.000152439024390244|true|0
+eps|Uncoated carbon steel, clean|0.0000304878048780488|false|0
+eps|PVC plastic pipe|0.0000304878048780488|false|0
+eps|Aluminum|0.0000304878048780488|false|0
+eps|Galvanized steel, longitudinal seams, ≥ 4 ft (1.2m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, continuously rolled, spiral seams, 10 ft (3m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, spiral seam with 1, 2, and 3 ribs, 12 ft (3.6m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, spiral, corrugated, 10 ft (3m) joints|0.0000914634146341463|false|0
+eps|Fibrous glass duct, rigid|0.0000914634146341463|false|0
+eps|Fibrous glass duct liner, air side with facing material|0.0000914634146341463|false|0
+eps|Flexible duct, fabric and wire, fully extended|0.0000914634146341463|false|0
+eps|Fibrous glass duct liner, air side spray coated|0.00304878048780488|false|0
+eps|Flexible duct, metallic|0.00304878048780488|false|0
+eps|Concrete|0.00304878048780488|false|0
+shp|Rectangular|1|true|0
+shp|Circular|2|false|0
+fun|Supply|1|true|0
+fun|Exhaust/Return|2|false|0
+dimensionUnit|mm|1|true|1
+dimensionUnit|inch|2|true|2
+cat|Plenums|1|true|1
+cat|Elbows|2|false|1
+cat|Transitions|3|false|1
+cat|Junctions|4|false|1
+cat|Exits|5|false|1
+cat|Plenums|1|true|2
+cat|Elbows|2|false|2
+cat|Transitions|3|false|2
+cat|Junctions|4|false|2
+cat|Entries|5|false|2
+fittingDescription|SRec-plenums|0|true|111
+fittingDescription|SRec-elbow,CRec-elbow|0|true|112
+fittingDescription|SRec-transitions|0|true|113
+fittingDescription|SRec-junctions|0|true|114
+fittingDescription|SRec-exits|0|true|115
+fittingDescription|ERec-plenums|0|true|121
+fittingDescription|ERec-elbow,CRec-elbow|0|true|122
+fittingDescription|ERec-transitions|0|true|123
+fittingDescription|ERec-junctions|0|true|124
+fittingDescription|ERec-entries|0|true|125
+fittingDescription|SRou-plenums|0|true|211
+fittingDescription|CRou-elbow|0|true|212
+fittingDescription|SRou-transitions|0|true|213
+fittingDescription|SRou-junctions|0|true|214
+fittingDescription|SRou-exits|0|true|215
+fittingDescription|ERou-plenums|0|true|221
+fittingDescription|CRou-elbow|0|true|222
+fittingDescription|ERou-transitions|0|true|223
+fittingDescription|ERou-junctions|0|true|224
+fittingDescription|ERou-entries|0|true|225
+dampersAndObstructionsDescription|CRec-dampers|0|true|1
+dampersAndObstructionsDescription|CRou-dampers|0|true|2
+ductMountedEquipmentDescription|CRec-equip|0|true|1
+ductMountedEquipmentDescription|CRou-equip|0|true|1
+pressureUnit|Pa|1|true|1
+pressureUnit|inch H2O|2|true|2
+fanSystemInteractionDescription|SRec-FSI|0|true|11
+fanSystemInteractionDescription|ERec-FSI|0|true|12
+fanSystemInteractionDescription|SRou-FSI|0|true|21
+fanSystemInteractionDescription|ERou-FSI|0|true|22

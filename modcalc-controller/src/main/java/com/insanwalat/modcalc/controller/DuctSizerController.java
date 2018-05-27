@@ -1,16 +1,12 @@
 package com.insanwalat.modcalc.controller;
 
-import com.insanwalat.modcalc.module.request.DuctSizerCalcRequest;
-import com.insanwalat.modcalc.module.response.DuctSizerCalcResponse;
-import com.insanwalat.modcalc.module.response.DuctSizerLookupResponse;
-import com.insanwalat.modcalc.service.DuctSizerService;
-import com.insanwalat.modcalc.service.impl.DuctSizerServiceImpl;
+import com.insanwalat.modcalc.ductsizer.module.request.DuctSizerCalcRequest;
+import com.insanwalat.modcalc.ductsizer.module.response.DuctSizerCalcResponse;
+import com.insanwalat.modcalc.ductsizer.module.response.DuctSizerLookupResponse;
+import com.insanwalat.modcalc.ductsizer.service.impl.DuctSizerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.util.List;
 
 @RestController
