@@ -1,10 +1,5 @@
 package com.insanwalat.modcalc.fanesp.module.response;
 
-import com.insanwalat.modcalc.fanesp.module.response.DampersAndObstructionsResponse;
-import com.insanwalat.modcalc.fanesp.module.response.DuctMountedEquipmentResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FittingResponse;
-import com.insanwalat.modcalc.fanesp.module.response.SpecialComponentResponse;
-
 import java.util.List;
 
 public class DuctSectionResponse {

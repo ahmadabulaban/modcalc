@@ -27,9 +27,37 @@ public class FanEspValidation {
         validateTemperatureInput(request);
         validateEps(request);
         validateDuctSectionList(request);
-        validateStartAndEndPoints(request);
         validateEachDuctSection(request);
+        validateDuctSectionsStartAndEndPoints(request);
         validateFanSystemInteraction(request);
+        validateAirTerminals(request);
+        validateFanRate(request);
+    }
+
+    private void validateFanRate(FanEspCalcRequest request) {
+        if (isNull(request.getFanRate().getFanRateInput()))
+            throw new InvalidFanEspCalcInputException("Null Fan Flow Rate Input");
+    }
+
+    private void validateAirTerminals(FanEspCalcRequest request) {
+        if(isNull(request.getAirTerminalList()))
+            throw new InvalidFanEspCalcInputException("Null Air Terminal List");
+        if(request.getAirTerminalList().isEmpty())
+            throw new InvalidFanEspCalcInputException("Empty Air Terminal List");
+        for (AirTerminal airTerminal: request.getAirTerminalList()) {
+            validateEachAirTerminal(airTerminal);
+        }
+    }
+
+    private void validateEachAirTerminal(AirTerminal airTerminal) {
+        if(isNull(airTerminal.getAirTerminalDescription()) || airTerminal.getAirTerminalDescription().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Air Terminal Type");
+        if(isNull(airTerminal.getModel()) || airTerminal.getModel().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Air Terminal Model");
+        if(isNull(airTerminal.getTerminalRateInput()))
+            throw new InvalidFanEspCalcInputException("Invalid Air Terminal Rate Input");
+        if(isNull(airTerminal.getTerminalPressureDropInput()))
+            throw new InvalidFanEspCalcInputException("Invalid Air Terminal Pressure Loss Input");
     }
 
     private void validateFanSystemInteraction(FanEspCalcRequest request) {
@@ -42,16 +70,21 @@ public class FanEspValidation {
             throw new InvalidFanEspCalcInputException("Null Fan System Interaction sizing criteria");
         if (!(sizingCriteria == 1 || sizingCriteria == 2))
             throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction sizing criteria");
-        //validateFanSystemInteractionDescriptionAndCi(request);
+        validateFanSystemInteractionDescriptionAndCi(request);
     }
 
-//    private void validateFanSystemInteractionDescriptionAndCi(FanEspCalcRequest request) {
-//
-//    }
+    private void validateFanSystemInteractionDescriptionAndCi(FanEspCalcRequest request) {
+        if(isNull(request.getFanSystemInteraction().getFanSystemInteractionDescription())
+                || request.getFanSystemInteraction().getFanSystemInteractionDescription().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Description");
+        if(isNull(request.getFanSystemInteraction().getCi()))
+            throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Coefficient");
+    }
 
     private void validateEachDuctSection(FanEspCalcRequest request) {
         List<DuctSection> ductSectionList = request.getDuctSectionList();
         for (DuctSection ductSection : ductSectionList) {
+            validateDuctSectionPoints(ductSection);
             validateRateInput(request, ductSection);
             validateLengthInput(request, ductSection);
             validateShp(ductSection);
@@ -64,30 +97,80 @@ public class FanEspValidation {
             if (!isNull(fittingList) && !fittingList.isEmpty()) {
                 for (Fitting fitting : fittingList) {
                     validateFittingSizingCriteria(fitting);
-                    validateCat(fitting, ductSection);
-                    validateFittingDescriptionAndCf(fitting, ductSection);
+                    validateFittingDetails(fitting, ductSection);
                 }
             }
             List<DampersAndObstructions> dampersAndObstructionsList = ductSection.getDampersAndObstructionsList();
             if (!isNull(dampersAndObstructionsList) && !dampersAndObstructionsList.isEmpty()) {
                 for (DampersAndObstructions dampersAndObstructions : dampersAndObstructionsList) {
                     validateDampersAndObstructionsSizingCriteria(dampersAndObstructions);
-                    //validateDampersAndObstructionsDescriptionAndCd(dampersAndObstructions);
+                    validateDampersAndObstructionsDetails(dampersAndObstructions,ductSection);
                 }
             }
             List<DuctMountedEquipment> ductMountedEquipmentList = ductSection.getDuctMountedEquipmentList();
             if (!isNull(ductMountedEquipmentList) && !ductMountedEquipmentList.isEmpty()) {
                 for (DuctMountedEquipment ductMountedEquipment : ductMountedEquipmentList) {
                     validateDuctMountedEquipmentSizingCriteria(ductMountedEquipment);
-                    //validateDuctMountedEquipmentDescriptionAndCe(ductMountedEquipment);
+                    validateDuctMountedEquipmentDetails(ductMountedEquipment,ductSection);
+                }
+            }
+            List<SpecialComponent> specialComponentList = ductSection.getSpecialComponentList();
+            if (!isNull(specialComponentList) && !specialComponentList.isEmpty()) {
+                for (SpecialComponent specialComponent : specialComponentList) {
+                    validateSpecialComponentDetails(specialComponent);
                 }
             }
         }
     }
 
-//    private void validateDuctMountedEquipmentDescriptionAndCe(DuctMountedEquipment ductMountedEquipment) {
-//
-//    }
+    private void validateSpecialComponentDetails(SpecialComponent specialComponent) {
+        String specialComponentDescription = specialComponent.getSpecialComponentDescription();
+        Double componentPressureDropInput = specialComponent.getComponentPressureDropInput();
+        Double qc = specialComponent.getQc();
+        if (isNull(specialComponentDescription) || specialComponentDescription.trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Special Component description");
+        if (isNull(componentPressureDropInput))
+            throw new InvalidFanEspCalcInputException("Null Special Component Pressure Loss Input");
+        if (isNull(qc))
+            throw new InvalidFanEspCalcInputException("Null Special Component coefficient");
+
+    }
+
+    private void validateDuctMountedEquipmentDetails(DuctMountedEquipment ductMountedEquipment,DuctSection ductSection) {
+        String ductMountedEquipmentDescription = ductMountedEquipment.getDuctMountedEquipmentDescription();
+        Double ce = ductMountedEquipment.getCe();
+        Double qe = ductMountedEquipment.getQe();
+        if (isNull(ductMountedEquipmentDescription) || ductMountedEquipmentDescription.trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Duct Mounted Equipment description");
+        if (isNull(ce))
+            throw new InvalidFanEspCalcInputException("Null Duct Mounted Equipment coefficient");
+        if (isNull(qe))
+            throw new InvalidFanEspCalcInputException("Null Duct Mounted Equipment qty");
+        if (ductMountedEquipment.getDuctMountedEquipmentCriteria() == 1) {
+            Integer shp = ductSection.getShp();
+            Integer group = shp;
+            List<String> ductMountedEquipmentDescriptions = Arrays.asList(fanEspLookupsParser.getDataList().stream()
+                    .filter(e -> e.getUiField().equals("ductMountedEquipmentDescription")
+                            && e.getGroup().equals(group))
+                    .map(e -> e.getKey())
+                    .findFirst()
+                    .get().split(","));
+            List<FanEspCoefficientLookup> fanEspCoefficientLookupList = new ArrayList<>();
+            for (String description : ductMountedEquipmentDescriptions) {
+                fanEspCoefficientLookupList.addAll(fanEspLookupsParser
+                        .getDataCoefficientList(description));
+            }
+            if (fanEspCoefficientLookupList.stream().noneMatch(e -> e.getTypeName().equals(ductMountedEquipmentDescription)))
+                throw new InvalidFanEspCalcInputException("Invalid Duct Mounted Equipment description");
+            FanEspCoefficientLookup fanEspCoefficientLookup = fanEspCoefficientLookupList.stream()
+                    .filter(e -> e.getTypeName().equals(ductMountedEquipmentDescription))
+                    .findFirst().get();
+            FanEspCoefficientDataLookup fanEspCoefficientDataLookup =
+                    fanEspLookupsParser.getFanEspCoefficientDataLookup(fanEspCoefficientLookup.getTypeName());
+            if (!fanEspCoefficientDataLookup.getValues().contains(ce))
+                throw new InvalidFanEspCalcInputException("Invalid Duct Mounted Equipment coefficient");
+        }
+    }
 
     private void validateDuctMountedEquipmentSizingCriteria(DuctMountedEquipment ductMountedEquipment) {
         Integer sizingCriteria = ductMountedEquipment.getDuctMountedEquipmentCriteria();
@@ -98,9 +181,42 @@ public class FanEspValidation {
 
     }
 
-//    private void validateDampersAndObstructionsDescriptionAndCd(DampersAndObstructions dampersAndObstructions) {
-//
-//    }
+    private void validateDampersAndObstructionsDetails(DampersAndObstructions dampersAndObstructions, DuctSection ductSection) {
+        String dampersAndObstructionsDescription = dampersAndObstructions.getDampersAndObstructionsDescription();
+        Double cd = dampersAndObstructions.getCd();
+        Double qd = dampersAndObstructions.getQd();
+        if (isNull(dampersAndObstructionsDescription) || dampersAndObstructionsDescription.trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Dampers And Obstructions description");
+        if (isNull(cd))
+            throw new InvalidFanEspCalcInputException("Null Dampers And Obstructions coefficient");
+        if (isNull(qd))
+            throw new InvalidFanEspCalcInputException("Null Dampers And Obstructions qty");
+        if (dampersAndObstructions.getDampersAndObstructionsSizingCriteria() == 1) {
+            Integer shp = ductSection.getShp();
+            Integer group = shp;
+            List<String> dampersAndObstructionsDescriptions = Arrays.asList(fanEspLookupsParser.getDataList().stream()
+                    .filter(e -> e.getUiField().equals("dampersAndObstructionsDescription")
+                            && e.getGroup().equals(group))
+                    .map(e -> e.getKey())
+                    .findFirst()
+                    .get().split(","));
+            List<FanEspCoefficientLookup> fanEspCoefficientLookupList = new ArrayList<>();
+            for (String description : dampersAndObstructionsDescriptions) {
+                fanEspCoefficientLookupList.addAll(fanEspLookupsParser
+                        .getDataCoefficientList(description));
+            }
+            if (fanEspCoefficientLookupList.stream().noneMatch(e -> e.getTypeName().equals(dampersAndObstructionsDescription)))
+                throw new InvalidFanEspCalcInputException("Invalid Dampers And Obstructions description");
+            FanEspCoefficientLookup fanEspCoefficientLookup = fanEspCoefficientLookupList.stream()
+                    .filter(e -> e.getTypeName().equals(dampersAndObstructionsDescription))
+                    .findFirst().get();
+            FanEspCoefficientDataLookup fanEspCoefficientDataLookup =
+                    fanEspLookupsParser.getFanEspCoefficientDataLookup(fanEspCoefficientLookup.getTypeName());
+            if (!fanEspCoefficientDataLookup.getValues().contains(cd))
+                throw new InvalidFanEspCalcInputException("Invalid Dampers And Obstructions coefficient");
+        }
+
+    }
 
     private void validateDampersAndObstructionsSizingCriteria(DampersAndObstructions dampersAndObstructions) {
         Integer sizingCriteria = dampersAndObstructions.getDampersAndObstructionsSizingCriteria();
@@ -110,14 +226,21 @@ public class FanEspValidation {
             throw new InvalidFanEspCalcInputException("Invalid Dampers And Obstructions sizing criteria");
     }
 
-    private void validateFittingDescriptionAndCf(Fitting fitting, DuctSection ductSection) {
+    private void validateFittingDetails(Fitting fitting, DuctSection ductSection) {
+        validateCat(fitting, ductSection);
+        String fittingDescription = fitting.getFittingDescription();
+        Double cf = fitting.getCf();
+        Double qf = fitting.getQf();
+        if (isNull(fittingDescription) || fittingDescription.trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid fitting description");
+        if (isNull(cf))
+            throw new InvalidFanEspCalcInputException("Null fitting coefficient");
+        if (isNull(qf))
+            throw new InvalidFanEspCalcInputException("Null fitting Qty");
         if (fitting.getFittingSizingCriteria() == 1) {
-            String fittingDescription = fitting.getFittingDescription();
             Integer shp = ductSection.getShp();
             Integer fun = ductSection.getFun();
             Integer cat = fitting.getCat();
-            if (isNull(fittingDescription))
-                throw new InvalidFanEspCalcInputException("Null fitting description");
             Integer group = shp * 100 + fun * 10 + cat;
             List<String> fittingDescriptions = Arrays.asList(fanEspLookupsParser.getDataList().stream()
                     .filter(e -> e.getUiField().equals("fittingDescription")
@@ -137,9 +260,8 @@ public class FanEspValidation {
                     .findFirst().get();
             FanEspCoefficientDataLookup fanEspCoefficientDataLookup =
                     fanEspLookupsParser.getFanEspCoefficientDataLookup(fanEspCoefficientLookup.getTypeName());
-            Double cf = fitting.getCf();
             if (!fanEspCoefficientDataLookup.getValues().contains(cf))
-                throw new InvalidFanEspCalcInputException("Invalid cf");
+                throw new InvalidFanEspCalcInputException("Invalid coefficient");
         }
     }
 
@@ -148,13 +270,13 @@ public class FanEspValidation {
             Integer cat = fitting.getCat();
             Integer fun = ductSection.getFun();
             if (isNull(cat))
-                throw new InvalidFanEspCalcInputException("Null cat value");
+                throw new InvalidFanEspCalcInputException("Null category value");
             List<Integer> catGroupList = fanEspLookupsParser.getDataList().stream()
                     .filter(e -> e.getUiField().equals("cat") && e.getGroup().equals(fun))
                     .mapToInt(e -> e.getValue().intValue())
                     .boxed().collect(Collectors.toList());
             if (!catGroupList.contains(cat))
-                throw new InvalidFanEspCalcInputException("Invalid cat value");
+                throw new InvalidFanEspCalcInputException("Invalid category value");
         }
     }
 
@@ -264,7 +386,14 @@ public class FanEspValidation {
             throw new InvalidFanEspCalcInputException("Invalid rate input value");
     }
 
-    private void validateStartAndEndPoints(FanEspCalcRequest request) {
+    private void validateDuctSectionPoints(DuctSection ductSection){
+        if(isNull(ductSection.getStartPoint()) || ductSection.getStartPoint().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Duct Section Start Point");
+        if(isNull(ductSection.getEndPoint()) || ductSection.getEndPoint().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Duct Section End Point");
+    }
+
+    private void validateDuctSectionsStartAndEndPoints(FanEspCalcRequest request) {
         List<DuctSection> ductSectionList = request.getDuctSectionList();
         Set<String> startPoints = new HashSet<>();
         ductSectionList.forEach(d -> startPoints.add(d.getStartPoint()));

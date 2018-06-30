@@ -1,9 +1,5 @@
 package com.insanwalat.modcalc.fanesp.module.response;
 
-import com.insanwalat.modcalc.fanesp.module.response.AirTerminalResponse;
-import com.insanwalat.modcalc.fanesp.module.response.DuctSectionResponse;
-
-import java.util.Date;
 import java.util.List;
 
 public class FanEspCalcResponse {

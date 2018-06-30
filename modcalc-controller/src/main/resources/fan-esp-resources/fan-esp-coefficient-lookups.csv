@@ -1,0 +1,91 @@
+name|document-related|type-name|document|height|width|image
+SRec-plenums-1|SRec-plenums|SR1-1 Conical Bellmouth/Sudden Contraction, Plenum toRectangular|fan-esp-resources/coefficient-documents/SRec-plenums-1.csv|10|10|SRec-plenums-1
+SRec-elbow-1|SRec-elbow|SR3-1 Elbow, 90 Degree, Variable Inlet/Outlet Areas|fan-esp-resources/coefficient-documents/SRec-elbow-1.csv|7|8|SRec-elbow-1
+CRec-elbow-1|CRec-elbow|CR3-1 Elbow, Smooth Radius without Vanes|fan-esp-resources/coefficient-documents/CRec-elbow-1.csv|33|13|CRec-elbow-1
+CRec-elbow-2|CRec-elbow|CR3-2 Elbow, Sharp Throat (r/W=0.5), Radius Heel, 90 Degree|fan-esp-resources/coefficient-documents/CRec-elbow-2.csv|2|11|CRec-elbow-2
+CRec-elbow-3|CRec-elbow|CR3-3 Elbow, Smooth Radius, One Splitter Vane|fan-esp-resources/coefficient-documents/CRec-elbow-3.csv|43|13|CRec-elbow-3
+CRec-elbow-4|CRec-elbow|CR3-4 Elbow, Smooth Radius, Two Splitter Vanes|fan-esp-resources/coefficient-documents/CRec-elbow-4.csv|27|10|CRec-elbow-4
+CRec-elbow-5|CRec-elbow|CR3-6 Elbow, Mitered|fan-esp-resources/coefficient-documents/CRec-elbow-5.csv|9|12|CRec-elbow-5
+CRec-elbow-6|CRec-elbow|CR3-7 Elbow, Rounded Throat, Sharp Heel, 90 Degree|fan-esp-resources/coefficient-documents/CRec-elbow-6.csv|10|11|CRec-elbow-6
+CRec-elbow-7|CRec-elbow|CR3-8 Elbow, Beveled Throat, Sharp Heel, 90 Degree|fan-esp-resources/coefficient-documents/CRec-elbow-7.csv|10|11|CRec-elbow-7
+CRec-elbow-8|CRec-elbow|CR3-9 Elbow, Mitered, 90 Degree, Single-Thickness Vanes|fan-esp-resources/coefficient-documents/CRec-elbow-8.csv|1|2|CRec-elbow-8
+CRec-elbow-9|CRec-elbow|CR3-12 Elbow, Mitered, 90 Degree, Single-Thickness Vanes|fan-esp-resources/coefficient-documents/CRec-elbow-9.csv|1|2|CRec-elbow-9
+CRec-elbow-10|CRec-elbow|CR3-14 Elbow, Mitered, 90 Degree, Double-Thickness Vanes|fan-esp-resources/coefficient-documents/CRec-elbow-10.csv|1|2|CRec-elbow-10
+CRec-elbow-11|CRec-elbow|CR3-15 Elbow, Mitered, 90 Degree, Double-Thickness Vanes2 1/8-in. Vane Spacing|fan-esp-resources/coefficient-documents/CRec-elbow-11.csv|1|2|CRec-elbow-11
+CRec-elbow-12|CRec-elbow|CR3-16 Elbow, Mitered, 90 Degree, Double-Thickness Vanes3 1/4-in. Vane Spacing|fan-esp-resources/coefficient-documents/CRec-elbow-12.csv|1|2|CRec-elbow-12
+CRec-elbow-13|CRec-elbow|CR3-17 Elbow, Z-Shape|fan-esp-resources/coefficient-documents/CRec-elbow-13.csv|33|14|CRec-elbow-13
+SRec-transitions-1|SRec-transitions|SR4-1 Transition, Rectangular, Two Sides Parallel, Symmetrical|fan-esp-resources/coefficient-documents/SRec-transitions-1.csv|13|14|SRec-transitions-1
+SRec-transitions-2|SRec-transitions|SR4-3 Transition, Round to Rectangular|fan-esp-resources/coefficient-documents/SRec-transitions-2.csv|13|14|SRec-transitions-2
+SRec-junctions-1|SRec-junctions|SR5-1 Smooth Radius Wye of the Type As + Ab > or = Ac, Branch 90 Degrees to Main, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-1.csv|24|11|SRec-junctions-1
+SRec-junctions-2|SRec-junctions|SR5-3 Wye of the Type As + Ab > Ac, As = Ac, 45 Degree, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-2.csv|14|10|SRec-junctions-2
+SRec-junctions-3|SRec-junctions|SR5-5 Tee of the Type As + Ab > Ac, As = Ac, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-3.csv|14|10|SRec-junctions-3
+SRec-junctions-4|SRec-junctions|SR5-11 Tee, Rectangular Main to Round Tap, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-4.csv|24|10|SRec-junctions-4
+SRec-junctions-5|SRec-junctions|SR5-13 Tee, 45 Degree Entry Branch, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-5.csv|24|10|SRec-junctions-5
+SRec-junctions-6|SRec-junctions|SR5-14 Wye, Symmetrical, Dovetail, Qb/Qc = 0.5, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-6.csv|2|7|SRec-junctions-6
+SRec-junctions-7|SRec-junctions|SR5-15 Bullhead Tee without Vanes, Diverging|fan-esp-resources/coefficient-documents/SRec-junctions-7.csv|12|10|SRec-junctions-7
+SRec-exits-1|SRec-exits|SR2-1 Abrupt Exit|fan-esp-resources/coefficient-documents/SRec-exits-1.csv|5|11|SRec-exits-1
+SRec-exits-2|SRec-exits|SR2-3 Plain Diffuser (Two Sides Parallel), Free Discharge|fan-esp-resources/coefficient-documents/SRec-exits-2.csv|23|12|SRec-exits-2
+SRec-exits-3|SRec-exits|SR2-5 Pyramidal Diffuser, Free Discharge|fan-esp-resources/coefficient-documents/SRec-exits-3.csv|28|12|SRec-exits-3
+ERec-plenums-1|ERec-plenums|ER2-1 Bellmouth, Plenum to Round|fan-esp-resources/coefficient-documents/ERec-plenums-1.csv|24|14|ERec-plenums-1
+ERec-elbow-1|ERec-elbow|ER3-1 Elbow, 90 Degree, Variable Inlet/Outlet Areas|fan-esp-resources/coefficient-documents/ERec-elbow-1.csv|7|8|ERec-elbow-1
+ERec-transitions-1|ERec-transitions|ER4-1 Transition, Rectangular, Two Sides Parallel, Symmetrical|fan-esp-resources/coefficient-documents/ERec-transitions-1.csv|13|14|ERec-transitions-1
+ERec-transitions-2|ERec-transitions|ER4-3 Transition, Rectangular to Round|fan-esp-resources/coefficient-documents/ERec-transitions-2.csv|13|14|ERec-transitions-2
+ERec-junctions-1|ERec-junctions|ER5-1 Smooth Radius Wye of the Type As + Ab > or = Ac, Branch 90Degrees to Main|fan-esp-resources/coefficient-documents/ERec-junctions-1.csv|24|11|ERec-junctions-1
+ERec-junctions-2|ERec-junctions|ER5-2 Tee, Round Tap to Rectangular Main [Ab/As=Ab/Ac=0.5; As/Ac], Converging|fan-esp-resources/coefficient-documents/ERec-junctions-2.csv|4|11|ERec-junctions-2
+ERec-junctions-3|ERec-junctions|ER5-3 Tee, 45 Degree Entry Branch [Ab/As=Ab/Ac=0.5; As=Ac], Converging|fan-esp-resources/coefficient-documents/ERec-junctions-3.csv|4|11|ERec-junctions-3
+ERec-junctions-4|ERec-junctions|ER5-4 Wye, Symmetrical, Dovetail, Qb/Qc = 0.5, Converging|fan-esp-resources/coefficient-documents/ERec-junctions-4.csv|2|7|ERec-junctions-4
+ERec-junctions-5|ERec-junctions|ER5-5 Bullhead Tee without Vanes, Converging|fan-esp-resources/coefficient-documents/ERec-junctions-5.csv|12|10|ERec-junctions-5
+ERec-entries-1|ERec-entries|ER1-2 Conical Bellmouth/Sudden Contraction|fan-esp-resources/coefficient-documents/ERec-entries-1.csv|12|8|ERec-entries-1
+SRou-plenums-1|SRou-plenums|SD1-1 Bellmouth (Standard Radius), Plenum to Round|fan-esp-resources/coefficient-documents/SRou-plenums-1.csv|2|14|SRou-plenums-1
+SRou-plenums-2|SRou-plenums|SD1-2 Conical Bellmouth/Sudden Contraction, Plenum to Round|fan-esp-resources/coefficient-documents/SRou-plenums-2.csv|10|10|SRou-plenums-2
+CRou-elbow-1|CRou-elbow|CD3-1 Elbow, Die Stamped, 90 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-1.csv|2|9|CRou-elbow-1
+CRou-elbow-2|CRou-elbow|CD3-2 Elbow, Die Stamped, 90 Degree, r/D = 1.0|fan-esp-resources/coefficient-documents/CRou-elbow-2.csv|2|9|CRou-elbow-2
+CRou-elbow-3|CRou-elbow|CD3-3 Elbow, Die Stamped, 45 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-3.csv|2|9|CRou-elbow-3
+CRou-elbow-4|CRou-elbow|CD3-4 Elbow, Die Stamped, 45 Degree, r/D = 1.0|fan-esp-resources/coefficient-documents/CRou-elbow-4.csv|2|9|CRou-elbow-4
+CRou-elbow-5|CRou-elbow|CD3-5 Elbow, Pleated, 90 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-5.csv|2|8|CRou-elbow-5
+CRou-elbow-6|CRou-elbow|CD3-7 Elbow, Pleated, 45 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-6.csv|2|8|CRou-elbow-6
+CRou-elbow-7|CRou-elbow|CD3-9 Elbow, 5 Gore, 90 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-7.csv|2|12|CRou-elbow-7
+CRou-elbow-8|CRou-elbow|CD3-10 Elbow, 7 Gore, 90 Degree, r/D = 2.5|fan-esp-resources/coefficient-documents/CRou-elbow-8.csv|2|9|CRou-elbow-8
+CRou-elbow-9|CRou-elbow|CD3-12 Elbow, 3 Gore, 90 Degree, r/D=0.75 to 2.0|fan-esp-resources/coefficient-documents/CRou-elbow-9.csv|2|5|CRou-elbow-9
+CRou-elbow-10|CRou-elbow|CD3-13 Elbow, 3 Gore, 60 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-10.csv|2|12|CRou-elbow-10
+CRou-elbow-11|CRou-elbow|CD3-14 Elbow, 3 Gore, 45 Degree, r/D = 1.5|fan-esp-resources/coefficient-documents/CRou-elbow-11.csv|2|12|CRou-elbow-11
+CRou-elbow-12|CRou-elbow|CD3-15 Elbow, Mitered, 90 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-12.csv|1|2|CRou-elbow-12
+CRou-elbow-13|CRou-elbow|CD3-16 Elbow, Mitered, 60 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-13.csv|2|11|CRou-elbow-13
+CRou-elbow-14|CRou-elbow|CD3-17 Elbow, Mitered, 45 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-14.csv|2|11|CRou-elbow-14
+CRou-elbow-15|CRou-elbow|CD3-18 Elbow, Mitered, 30 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-15.csv|2|11|CRou-elbow-15
+CRou-elbow-16|CRou-elbow|CD3-19 Elbow, Mitered, 22.5 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-16.csv|2|11|CRou-elbow-16
+CRou-elbow-17|CRou-elbow|CD3-20 Elbow, Mitered with Vanes, 90 Degree|fan-esp-resources/coefficient-documents/CRou-elbow-17.csv|2|11|CRou-elbow-17
+CRou-elbow-18|CRou-elbow|CD3-21 Elbow, 5 Gore, 90 Degree, r/D = 1.0|fan-esp-resources/coefficient-documents/CRou-elbow-18.csv|2|11|CRou-elbow-18
+SRou-transitions-1|SRou-transitions|SD4-1 Transition, Round to Round|fan-esp-resources/coefficient-documents/SRou-transitions-1.csv|15|14|SRou-transitions-1
+SRou-transitions-2|SRou-transitions|SD4-2 Transition, Rectangular to Round|fan-esp-resources/coefficient-documents/SRou-transitions-2.csv|13|14|SRou-transitions-2
+SRou-junctions-1|SRou-junctions|SD5-1 Wye, 45 Degree, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-1.csv|26|10|SRou-junctions-1
+SRou-junctions-2|SRou-junctions|SD5-9 Tee, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-2.csv|26|10|SRou-junctions-2
+SRou-junctions-3|SRou-junctions|SD5-10 Tee, Conical Branch Tapered into Body, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-3.csv|26|10|SRou-junctions-3
+SRou-junctions-4|SRou-junctions|SD5-18 Bullhead Tee without Vanes, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-4.csv|11|10|SRou-junctions-4
+SRou-junctions-5|SRou-junctions|SD5-19 Bullhead Tee with Vanes, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-5.csv|11|10|SRou-junctions-5
+SRou-junctions-6|SRou-junctions|SD5-20 Capped Cross, 90 Degree, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-6.csv|11|10|SRou-junctions-6
+SRou-junctions-7|SRou-junctions|SD5-24 Cross, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-7.csv|66|11|SRou-junctions-7
+SRou-junctions-8|SRou-junctions|SD5-25 Cross, Conical Branches Tapered into Body, Diverging|fan-esp-resources/coefficient-documents/SRou-junctions-8.csv|66|11|SRou-junctions-8
+SRou-exits-1|SRou-exits|SD2-1 Abrupt Exit|fan-esp-resources/coefficient-documents/SRou-exits-1.csv|1|2|SRou-exits-1
+SRou-exits-2|SRou-exits|SD2-4 Conical Diffuser, with Wall|fan-esp-resources/coefficient-documents/SRou-exits-2.csv|2|7|SRou-exits-2
+SRou-exits-3|SRou-exits|SD2-5 Exhaust Hood|fan-esp-resources/coefficient-documents/SRou-exits-3.csv|2|7|SRou-exits-3
+SRou-exits-4|SRou-exits|SD2-6 and SD2-7 Stackheads|fan-esp-resources/coefficient-documents/SRou-exits-4.csv|2|9|SRou-exits-4
+ERou-plenums-1|ERou-plenums|ED2-1 Conical Diffuser, Round to Plenum|fan-esp-resources/coefficient-documents/ERou-plenums-1.csv|29|12|ERou-plenums-1
+ERou-transitions-1|ERou-transitions|ED4-1 Transition, Round to Round|fan-esp-resources/coefficient-documents/ERou-transitions-1.csv|13|14|ERou-transitions-1
+ERou-transitions-2|ERou-transitions|ED4-2 Transition, Round to Rectangular|fan-esp-resources/coefficient-documents/ERou-transitions-2.csv|13|14|ERou-transitions-2
+ERou-junctions-1|ERou-junctions|ED5-1 Wye, 30 Degree, Converging|fan-esp-resources/coefficient-documents/ERou-junctions-1.csv|205|11|ERou-junctions-1
+ERou-junctions-2|ERou-junctions|ED5-2 Wye, 45 Degree, Converging|fan-esp-resources/coefficient-documents/ERou-junctions-2.csv|205|11|ERou-junctions-2
+ERou-junctions-3|ERou-junctions|ED5-3 Tee, Converging Dc≤ 250 mm|fan-esp-resources/coefficient-documents/ERou-junctions-3.csv|206|11|ERou-junctions-3
+ERou-junctions-4|ERou-junctions|ED5-3 Tee, Converging Dc >250 mm|fan-esp-resources/coefficient-documents/ERou-junctions-4.csv|206|11|ERou-junctions-4
+ERou-junctions-5|ERou-junctions|ED5-6 Capped Wye, Branch with 45 Degree Elbow, Branch 90 Degrees to Main, Converging|fan-esp-resources/coefficient-documents/ERou-junctions-5.csv|2|11|ERou-junctions-5
+ERou-junctions-6|ERou-junctions|ED5-7 Capped Tee, Converging|fan-esp-resources/coefficient-documents/ERou-junctions-6.csv|2|9|ERou-junctions-6
+ERou-junctions-7|ERou-junctions|ED5-9 Symmetrical Wye, 60 Degree, Db1 > or = Db2, Converging|fan-esp-resources/coefficient-documents/ERou-junctions-7.csv|116|11|ERou-junctions-7
+ERou-entries-1|ERou-entries|ED1-1 Duct Mounted in Wall|fan-esp-resources/coefficient-documents/ERou-entries-1.csv|7|10|ERou-entries-1
+ERou-entries-2|ERou-entries|ED1-2 Bellmouth, Standard Radius|fan-esp-resources/coefficient-documents/ERou-entries-2.csv|3|7|ERou-entries-2
+ERou-entries-3|ERou-entries|ED1-3 Bellmouth (Standard Radius) with Wall|fan-esp-resources/coefficient-documents/ERou-entries-3.csv|3|14|ERou-entries-3
+ERou-entries-4|ERou-entries|ED1-4 Conical Bellmouth/Sudden Contraction|fan-esp-resources/coefficient-documents/ERou-entries-4.csv|12|6|ERou-entries-4
+ERou-entries-5|ERou-entries|ED1-5 Conical Bellmouth/Sudden Contraction, with Wall|fan-esp-resources/coefficient-documents/ERou-entries-5.csv|10|6|ERou-entries-5
+ERou-entries-6|ERou-entries|ED1-6 Intake Hood|fan-esp-resources/coefficient-documents/ERou-entries-6.csv|11|7|ERou-entries-6
+ERou-entries-7|ERou-entries|ED1-8 Bellmouth, Short Radius|fan-esp-resources/coefficient-documents/ERou-entries-7.csv|9|12|ERou-entries-7
+ERou-entries-8|ERou-entries|ED10-1 Hood, Conical, Round Duct|fan-esp-resources/coefficient-documents/ERou-entries-8.csv|3|10|ERou-entries-8
+ERou-entries-9|ERou-entries|ED10-2 Hood, Rectangular-Shaped, Tapered, Round Duct|fan-esp-resources/coefficient-documents/ERou-entries-9.csv|3|10|ERou-entries-9

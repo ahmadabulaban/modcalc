@@ -2,6 +2,9 @@ package com.insanwalat.modcalc.fanesp.mapper;
 
 import com.insanwalat.modcalc.fanesp.module.*;
 import com.insanwalat.modcalc.fanesp.module.input.*;
+import com.insanwalat.modcalc.fanesp.module.lookup.FanEspCoefficientDataLookup;
+import com.insanwalat.modcalc.fanesp.module.lookup.FanEspCoefficientLookup;
+import com.insanwalat.modcalc.fanesp.module.lookup.FanEspLookup;
 import com.insanwalat.modcalc.fanesp.module.output.*;
 import com.insanwalat.modcalc.fanesp.module.request.FanEspCalcRequest;
 import com.insanwalat.modcalc.fanesp.module.response.*;
@@ -92,10 +95,6 @@ public class FanEspMapper {
                     ductSectionInput.setD(ductDiameterInput);
                 if (uu == 2)
                     ductSectionInput.setD(ductDiameterInput / 25.4);
-                String dimensionUnit = fanEspLookupsParser.getDataList().stream()
-                        .filter(e -> e.getUiField().equals("dimensionUnit") && e.getGroup().equals(uu))
-                        .findFirst().get().getKey();
-                ductSectionInput.setDimensionUnit(dimensionUnit);
             }
             if (shp == 1) {
                 Double ductWidthInput = ductSection.getDuctWidthInput();
@@ -111,6 +110,10 @@ public class FanEspMapper {
                     ductSectionInput.setH(ductHeightInput / 25.4);
                 }
             }
+            String dimensionUnit = fanEspLookupsParser.getDataList().stream()
+                    .filter(e -> e.getUiField().equals("dimensionUnit") && e.getGroup().equals(uu))
+                    .findFirst().get().getKey();
+            ductSectionInput.setDimensionUnit(dimensionUnit);
             Double ductThicknessInput = ductSection.getDuctThicknessInput();
             ductSectionInput.setThicknessInput(ductThicknessInput);
             if (uu == 1)
@@ -340,5 +343,28 @@ public class FanEspMapper {
             ductSectionResponseList.add(ductSectionResponse);
         }
         response.setDuctSectionResponseList(ductSectionResponseList);
+    }
+
+    public FanEspLookupResponse mapLookupToLookupResponse(FanEspLookup fanEspLookup) {
+        return new FanEspLookupResponse(fanEspLookup.getUiField(),
+                fanEspLookup.getKey(),
+                fanEspLookup.getValue(),
+                fanEspLookup.getDefaultOption(),
+                fanEspLookup.getGroup());
+    }
+
+    public FanEspCoefficientLookupResponse mapCoefficientLookupToCoefficientLookupResponse(FanEspCoefficientLookup fanEspCoefficientLookup) {
+        return new FanEspCoefficientLookupResponse(fanEspCoefficientLookup.getName(),
+                fanEspCoefficientLookup.getDocumentRelated(),
+                fanEspCoefficientLookup.getTypeName(),
+                fanEspCoefficientLookup.getDocument(),
+                fanEspCoefficientLookup.getHeight(),
+                fanEspCoefficientLookup.getWidth(),
+                fanEspCoefficientLookup.getImage());
+    }
+
+    public FanEspCoefficientDataLookupResponse mapCoefficientDataLookupToCoefficientDataLookupResponse(FanEspCoefficientDataLookup fanEspCoefficientDataLookup) {
+        return new FanEspCoefficientDataLookupResponse(fanEspCoefficientDataLookup.getName()
+                , fanEspCoefficientDataLookup.getTable());
     }
 }

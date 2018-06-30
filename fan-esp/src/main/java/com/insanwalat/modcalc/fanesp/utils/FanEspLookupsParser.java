@@ -18,6 +18,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class FanEspLookupsParser {
@@ -48,18 +49,26 @@ public class FanEspLookupsParser {
         return dataList;
     }
 
+    public List<FanEspCoefficientLookup> getDataCoefficientList() {
+        return dataCoefficientList;
+    }
+
     public List<FanEspCoefficientLookup> getDataCoefficientList(String documentRelated) {
         List<FanEspCoefficientLookup> list = new ArrayList<>();
         for (FanEspCoefficientLookup coefficientLookup : dataCoefficientList) {
-            if(coefficientLookup.getDocumentRelated().equalsIgnoreCase(documentRelated))
+            if (coefficientLookup.getDocumentRelated().equalsIgnoreCase(documentRelated))
                 list.add(coefficientLookup);
         }
         return list;
     }
 
-    public FanEspCoefficientDataLookup getFanEspCoefficientDataLookup(String typeName){
+    public List<FanEspCoefficientDataLookup> getFanEspCoefficientDataLookupList() {
+        return coefficientDataLookupMap.values().stream().collect(Collectors.toList());
+    }
+
+    public FanEspCoefficientDataLookup getFanEspCoefficientDataLookup(String typeName) {
         for (FanEspCoefficientLookup coefficientLookup : dataCoefficientList) {
-            if(coefficientLookup.getTypeName().equalsIgnoreCase(typeName))
+            if (coefficientLookup.getTypeName().equalsIgnoreCase(typeName))
                 return coefficientDataLookupMap.get(coefficientLookup.getName());
         }
         return null;
@@ -120,7 +129,7 @@ public class FanEspLookupsParser {
 //                    System.arraycopy(record, 0, coefficientTable[i], 0, record.length);
                 }
             }
-            coefficientDataLookupMap.put(name, new FanEspCoefficientDataLookup(coefficientTable, coefficientValues));
+            coefficientDataLookupMap.put(name, new FanEspCoefficientDataLookup(name, coefficientTable, coefficientValues));
         }
     }
 }

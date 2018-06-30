@@ -4,6 +4,8 @@ import java.util.List;
 
 public class FanEspCoefficientDataLookup {
 
+    private String name;
+
     private String[][] table;
 
     private List<Double> values;
@@ -11,9 +13,18 @@ public class FanEspCoefficientDataLookup {
     public FanEspCoefficientDataLookup() {
     }
 
-    public FanEspCoefficientDataLookup(String[][] table, List<Double> values) {
+    public FanEspCoefficientDataLookup(String name, String[][] table, List<Double> values) {
+        this.name = name;
         this.table = table;
         this.values = values;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String[][] getTable() {

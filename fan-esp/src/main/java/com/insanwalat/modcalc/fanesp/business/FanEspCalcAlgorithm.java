@@ -70,12 +70,12 @@ public class FanEspCalcAlgorithm {
             DuctSectionOutput ductSectionOutput = new DuctSectionOutput();
             ductSectionOutput.setO1(ductSectionInput.getStartPoint());
             ductSectionOutput.setO2(ductSectionInput.getEndPoint());
-            ductSectionOutput.setTx1(input.getFlowRateUnit());
+            ductSectionOutput.setTx1(ductSectionInput.getDimensionUnit());
             if (ductSectionInput.getShp() == 1) {
                 ductSectionOutput.setO3(ductSectionInput.getWidthInput());
                 ductSectionOutput.setO4(ductSectionInput.getHeightInput());
             }
-            ductSectionOutput.setTx2(ductSectionInput.getDimensionUnit());
+            ductSectionOutput.setTx2(input.getFlowRateUnit());
             if (ductSectionInput.getShp() == 2) {
                 ductSectionOutput.setO5(ductSectionInput.getDuctDiameterInput());
             }
