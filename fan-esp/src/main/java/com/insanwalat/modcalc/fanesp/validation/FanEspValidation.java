@@ -61,24 +61,57 @@ public class FanEspValidation {
     }
 
     private void validateFanSystemInteraction(FanEspCalcRequest request) {
-        String ductSection = request.getFanSystemInteraction().getDuctSection();
-        if (request.getDuctSectionList().stream()
-                .noneMatch(e -> ductSection.equals(e.getStartPoint() + ":" + e.getEndPoint())))
-            throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction duct section");
-        Integer sizingCriteria = request.getFanSystemInteraction().getFanSystemInteractionCriteria();
-        if (isNull(sizingCriteria))
-            throw new InvalidFanEspCalcInputException("Null Fan System Interaction sizing criteria");
-        if (!(sizingCriteria == 1 || sizingCriteria == 2))
-            throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction sizing criteria");
-        validateFanSystemInteractionDescriptionAndCi(request);
+        FanSystemInteraction fanSystemInteraction = request.getFanSystemInteraction();
+        if(!isNull(fanSystemInteraction)) {
+            String ductSectionPoints = fanSystemInteraction.getDuctSection();
+            if (request.getDuctSectionList().stream()
+                    .noneMatch(e -> ductSectionPoints.equals(e.getStartPoint() + ":" + e.getEndPoint())))
+                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction duct section");
+            DuctSection ductSection = request.getDuctSectionList()
+                    .stream().filter(e -> ductSectionPoints.equals(e.getStartPoint() + ":" + e.getEndPoint()))
+                    .findFirst().get();
+            Integer sizingCriteria = fanSystemInteraction.getFanSystemInteractionCriteria();
+            if (isNull(sizingCriteria))
+                throw new InvalidFanEspCalcInputException("Null Fan System Interaction sizing criteria");
+            if (!(sizingCriteria == 1 || sizingCriteria == 2))
+                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction sizing criteria");
+            validateFanSystemInteractionDescriptionAndCi(fanSystemInteraction,ductSection);
+        }
     }
 
-    private void validateFanSystemInteractionDescriptionAndCi(FanEspCalcRequest request) {
-        if(isNull(request.getFanSystemInteraction().getFanSystemInteractionDescription())
-                || request.getFanSystemInteraction().getFanSystemInteractionDescription().trim().isEmpty())
+    private void validateFanSystemInteractionDescriptionAndCi(FanSystemInteraction fanSystemInteraction,DuctSection ductSection) {
+        String fanSystemInteractionDescription = fanSystemInteraction.getFanSystemInteractionDescription();
+        Double ci = fanSystemInteraction.getCi();
+        if(isNull(fanSystemInteractionDescription)
+                || fanSystemInteractionDescription.trim().isEmpty())
             throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Description");
-        if(isNull(request.getFanSystemInteraction().getCi()))
+        if(isNull(ci))
             throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Coefficient");
+        if (fanSystemInteraction.getFanSystemInteractionCriteria() == 1) {
+            Integer shp = ductSection.getShp();
+            Integer fun = ductSection.getFun();
+            Integer group = shp * 10 + fun;
+            List<String> fanSystemInteractionDescriptions = Arrays.asList(fanEspLookupsParser.getDataList().stream()
+                    .filter(e -> e.getUiField().equals("fanSystemInteractionDescription")
+                            && e.getGroup().equals(group))
+                    .map(e -> e.getKey())
+                    .findFirst()
+                    .get().split(","));
+            List<FanEspCoefficientLookup> fanEspCoefficientLookupList = new ArrayList<>();
+            for (String description : fanSystemInteractionDescriptions) {
+                fanEspCoefficientLookupList.addAll(fanEspLookupsParser
+                        .getDataCoefficientList(description));
+            }
+            if (fanEspCoefficientLookupList.stream().noneMatch(e -> e.getTypeName().equals(fanSystemInteractionDescription)))
+                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction description");
+            FanEspCoefficientLookup fanEspCoefficientLookup = fanEspCoefficientLookupList.stream()
+                    .filter(e -> e.getTypeName().equals(fanSystemInteractionDescription))
+                    .findFirst().get();
+            FanEspCoefficientDataLookup fanEspCoefficientDataLookup =
+                    fanEspLookupsParser.getFanEspCoefficientDataLookup(fanEspCoefficientLookup.getTypeName());
+            if (!fanEspCoefficientDataLookup.getValues().contains(ci))
+                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction coefficient");
+        }
     }
 
     private void validateEachDuctSection(FanEspCalcRequest request) {
