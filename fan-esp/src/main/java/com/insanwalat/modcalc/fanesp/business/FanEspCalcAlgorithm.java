@@ -267,17 +267,19 @@ public class FanEspCalcAlgorithm {
     }
 
     private void calculatePressureDropInFanSystemInteraction(FanEspCalcInput input) {
-        int cnt = 0;
-        double vFanSystemInteraction = (double) 0;
-        for (DuctSectionInput ductSectionInput : input.getDuctSectionInputList()) {
-            if (input.getDuctSection()
-                    .equals(ductSectionInput.getStartPoint() + ":" + ductSectionInput.getEndPoint())) {
-                vFanSystemInteraction = vList.get(cnt);
-                break;
+        if (!isNull(input.getDuctSection())) {
+            int cnt = 0;
+            double vFanSystemInteraction = (double) 0;
+            for (DuctSectionInput ductSectionInput : input.getDuctSectionInputList()) {
+                if (input.getDuctSection()
+                        .equals(ductSectionInput.getStartPoint() + ":" + ductSectionInput.getEndPoint())) {
+                    vFanSystemInteraction = vList.get(cnt);
+                    break;
+                }
+                ++cnt;
             }
-            ++cnt;
+            sec_pd_i = equations.fit_pd(vFanSystemInteraction, rho, input.getCi());
         }
-        sec_pd_i = equations.fit_pd(vFanSystemInteraction, rho, input.getCi());
     }
 
     private void calculatePressureDropInEachDuctMountedEquipment(FanEspCalcInput input) {

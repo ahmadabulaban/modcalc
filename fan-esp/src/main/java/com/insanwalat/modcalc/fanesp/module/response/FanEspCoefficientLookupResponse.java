@@ -9,11 +9,13 @@ public class FanEspCoefficientLookupResponse {
     private Integer height;
     private Integer width;
     private String image;
+    private String tableSource;
+    private Integer fixedHeaderHeight;
 
     public FanEspCoefficientLookupResponse() {
     }
 
-    public FanEspCoefficientLookupResponse(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image) {
+    public FanEspCoefficientLookupResponse(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, Integer fixedHeaderHeight) {
         this.name = name;
         this.documentRelated = documentRelated;
         this.typeName = typeName;
@@ -21,6 +23,8 @@ public class FanEspCoefficientLookupResponse {
         this.height = height;
         this.width = width;
         this.image = image;
+        this.tableSource = tableSource;
+        this.fixedHeaderHeight = fixedHeaderHeight;
     }
 
     public String getName() {
@@ -77,5 +81,21 @@ public class FanEspCoefficientLookupResponse {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTableSource() {
+        return tableSource;
+    }
+
+    public void setTableSource(String tableSource) {
+        this.tableSource = tableSource;
+    }
+
+    public Integer getFixedHeaderHeight() {
+        return fixedHeaderHeight;
+    }
+
+    public void setFixedHeaderHeight(Integer fixedHeaderHeight) {
+        this.fixedHeaderHeight = fixedHeaderHeight;
     }
 }

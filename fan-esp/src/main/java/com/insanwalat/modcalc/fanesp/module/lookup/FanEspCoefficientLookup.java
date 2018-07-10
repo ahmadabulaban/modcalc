@@ -25,10 +25,16 @@ public class FanEspCoefficientLookup {
     @CsvBindByName(column = "image")
     private String image;
 
+    @CsvBindByName(column = "table-source")
+    private String tableSource;
+
+    @CsvBindByName(column = "fixed-header-height")
+    private Integer fixedHeaderHeight;
+
     public FanEspCoefficientLookup() {
     }
 
-    public FanEspCoefficientLookup(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image) {
+    public FanEspCoefficientLookup(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, Integer fixedHeaderHeight) {
         this.name = name;
         this.documentRelated = documentRelated;
         this.typeName = typeName;
@@ -36,6 +42,8 @@ public class FanEspCoefficientLookup {
         this.height = height;
         this.width = width;
         this.image = image;
+        this.tableSource = tableSource;
+        this.fixedHeaderHeight = fixedHeaderHeight;
     }
 
     public String getName() {
@@ -92,5 +100,21 @@ public class FanEspCoefficientLookup {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getTableSource() {
+        return tableSource;
+    }
+
+    public void setTableSource(String tableSource) {
+        this.tableSource = tableSource;
+    }
+
+    public Integer getFixedHeaderHeight() {
+        return fixedHeaderHeight;
+    }
+
+    public void setFixedHeaderHeight(Integer fixedHeaderHeight) {
+        this.fixedHeaderHeight = fixedHeaderHeight;
     }
 }

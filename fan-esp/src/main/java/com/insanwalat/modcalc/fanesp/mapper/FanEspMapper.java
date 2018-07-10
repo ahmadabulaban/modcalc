@@ -65,9 +65,11 @@ public class FanEspMapper {
     }
 
     private void mapSystemInteraction(FanEspCalcRequest request) {
-        input.setDuctSection(request.getFanSystemInteraction().getDuctSection());
-        input.setFanSystemInteractionDescription(request.getFanSystemInteraction().getFanSystemInteractionDescription());
-        input.setCi(request.getFanSystemInteraction().getCi());
+        if (!isNull(request.getFanSystemInteraction())) {
+            input.setDuctSection(request.getFanSystemInteraction().getDuctSection());
+            input.setFanSystemInteractionDescription(request.getFanSystemInteraction().getFanSystemInteractionDescription());
+            input.setCi(request.getFanSystemInteraction().getCi());
+        }
     }
 
     private void mapDuctSections(FanEspCalcRequest request) {
@@ -360,7 +362,9 @@ public class FanEspMapper {
                 fanEspCoefficientLookup.getDocument(),
                 fanEspCoefficientLookup.getHeight(),
                 fanEspCoefficientLookup.getWidth(),
-                fanEspCoefficientLookup.getImage());
+                fanEspCoefficientLookup.getImage(),
+                fanEspCoefficientLookup.getTableSource(),
+                fanEspCoefficientLookup.getFixedHeaderHeight());
     }
 
     public FanEspCoefficientDataLookupResponse mapCoefficientDataLookupToCoefficientDataLookupResponse(FanEspCoefficientDataLookup fanEspCoefficientDataLookup) {
