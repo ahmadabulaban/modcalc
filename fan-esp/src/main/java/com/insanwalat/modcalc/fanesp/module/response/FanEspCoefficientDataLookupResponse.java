@@ -6,14 +6,14 @@ public class FanEspCoefficientDataLookupResponse {
 
     private String name;
 
-    private String[][] table;
+    private List<String[][]> tables;
 
     public FanEspCoefficientDataLookupResponse() {
     }
 
-    public FanEspCoefficientDataLookupResponse(String name, String[][] table) {
+    public FanEspCoefficientDataLookupResponse(String name, List<String[][]> tables) {
         this.name = name;
-        this.table = table;
+        this.tables = tables;
     }
 
     public String getName() {
@@ -24,11 +24,11 @@ public class FanEspCoefficientDataLookupResponse {
         this.name = name;
     }
 
-    public String[][] getTable() {
-        return table;
+    public List<String[][]> getTables() {
+        return tables;
     }
 
-    public void setTable(String[][] table) {
-        this.table = table;
+    public void setTable(List<String[][]> tables) {
+        this.tables = tables;
     }
 }

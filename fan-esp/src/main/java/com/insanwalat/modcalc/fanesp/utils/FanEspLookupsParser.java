@@ -39,7 +39,6 @@ public class FanEspLookupsParser {
             fillDataList();
             fillCoefficientDataList();
             fillCoefficientLookupsMap();
-            System.out.println("pepsi");
         } catch (Exception e) {
             throw new ParsingLookupDataException("Failed to parse Fan Esp Lookup Files");
         }

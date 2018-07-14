@@ -9,10 +9,12 @@ import com.insanwalat.modcalc.fanesp.module.output.*;
 import com.insanwalat.modcalc.fanesp.module.request.FanEspCalcRequest;
 import com.insanwalat.modcalc.fanesp.module.response.*;
 import com.insanwalat.modcalc.fanesp.utils.FanEspLookupsParser;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Objects.isNull;
@@ -356,6 +358,10 @@ public class FanEspMapper {
     }
 
     public FanEspCoefficientLookupResponse mapCoefficientLookupToCoefficientLookupResponse(FanEspCoefficientLookup fanEspCoefficientLookup) {
+        String[] fixedHeaderHeightString = fanEspCoefficientLookup.getFixedHeaderHeight().split(",");
+        String[] fixedBodyHeightString = fanEspCoefficientLookup.getFixedBodyHeight().split(",");
+        Integer[] fixedHeaderHeight = ArrayUtils.toObject(Arrays.stream(fixedHeaderHeightString).mapToInt(Integer::valueOf).toArray());
+        Integer[] fixedBodyHeight = ArrayUtils.toObject(Arrays.stream(fixedBodyHeightString).mapToInt(Integer::valueOf).toArray());
         return new FanEspCoefficientLookupResponse(fanEspCoefficientLookup.getName(),
                 fanEspCoefficientLookup.getDocumentRelated(),
                 fanEspCoefficientLookup.getTypeName(),
@@ -364,11 +370,33 @@ public class FanEspMapper {
                 fanEspCoefficientLookup.getWidth(),
                 fanEspCoefficientLookup.getImage(),
                 fanEspCoefficientLookup.getTableSource(),
-                fanEspCoefficientLookup.getFixedHeaderHeight());
+                fixedHeaderHeight,
+                fixedBodyHeight);
     }
 
     public FanEspCoefficientDataLookupResponse mapCoefficientDataLookupToCoefficientDataLookupResponse(FanEspCoefficientDataLookup fanEspCoefficientDataLookup) {
+        String name = fanEspCoefficientDataLookup.getName();
+        String[][] originalTable = fanEspCoefficientDataLookup.getTable();
+        FanEspCoefficientLookup fanEspCoefficientLookup = fanEspLookupsParser.getDataCoefficientList().stream().filter(e -> e.getName().equals(name)).findFirst().get();
+        Integer width = fanEspCoefficientLookup.getWidth();
+        String[] fixedHeaderHeightString = fanEspCoefficientLookup.getFixedHeaderHeight().split(",");
+        String[] fixedBodyHeightString = fanEspCoefficientLookup.getFixedBodyHeight().split(",");
+        Integer[] fixedHeaderHeight = ArrayUtils.toObject(Arrays.stream(fixedHeaderHeightString).mapToInt(Integer::valueOf).toArray());
+        Integer[] fixedBodyHeight = ArrayUtils.toObject(Arrays.stream(fixedBodyHeightString).mapToInt(Integer::valueOf).toArray());
+        List<String[][]> tables = new ArrayList<>();
+        int currentRow = 0;
+        for (int i = 0; i < fixedHeaderHeight.length; i++) {
+            int height = fixedHeaderHeight[i] + fixedBodyHeight[i];
+            String[][] table = new String[height][width];
+            for (int j = currentRow, h = 0; j < currentRow + height; j++, h++) {
+                for (int w = 0; w < width; w++) {
+                    table[h][w] = originalTable[j][w];
+                }
+            }
+            tables.add(table);
+            currentRow = currentRow + height;
+        }
         return new FanEspCoefficientDataLookupResponse(fanEspCoefficientDataLookup.getName()
-                , fanEspCoefficientDataLookup.getTable());
+                , tables);
     }
 }

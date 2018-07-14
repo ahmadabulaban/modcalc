@@ -10,12 +10,13 @@ public class FanEspCoefficientLookupResponse {
     private Integer width;
     private String image;
     private String tableSource;
-    private Integer fixedHeaderHeight;
+    private Integer[] fixedHeaderHeight;
+    private Integer[] fixedBodyHeight;
 
     public FanEspCoefficientLookupResponse() {
     }
 
-    public FanEspCoefficientLookupResponse(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, Integer fixedHeaderHeight) {
+    public FanEspCoefficientLookupResponse(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, Integer[] fixedHeaderHeight, Integer[] fixedBodyHeight) {
         this.name = name;
         this.documentRelated = documentRelated;
         this.typeName = typeName;
@@ -25,6 +26,7 @@ public class FanEspCoefficientLookupResponse {
         this.image = image;
         this.tableSource = tableSource;
         this.fixedHeaderHeight = fixedHeaderHeight;
+        this.fixedBodyHeight = fixedBodyHeight;
     }
 
     public String getName() {
@@ -91,11 +93,19 @@ public class FanEspCoefficientLookupResponse {
         this.tableSource = tableSource;
     }
 
-    public Integer getFixedHeaderHeight() {
+    public Integer[] getFixedHeaderHeight() {
         return fixedHeaderHeight;
     }
 
-    public void setFixedHeaderHeight(Integer fixedHeaderHeight) {
+    public void setFixedHeaderHeight(Integer[] fixedHeaderHeight) {
         this.fixedHeaderHeight = fixedHeaderHeight;
+    }
+
+    public Integer[] getFixedBodyHeight() {
+        return fixedBodyHeight;
+    }
+
+    public void setFixedBodyHeight(Integer[] fixedBodyHeight) {
+        this.fixedBodyHeight = fixedBodyHeight;
     }
 }

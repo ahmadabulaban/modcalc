@@ -29,12 +29,15 @@ public class FanEspCoefficientLookup {
     private String tableSource;
 
     @CsvBindByName(column = "fixed-header-height")
-    private Integer fixedHeaderHeight;
+    private String fixedHeaderHeight;
+
+    @CsvBindByName(column = "fixed-body-height")
+    private String fixedBodyHeight;
 
     public FanEspCoefficientLookup() {
     }
 
-    public FanEspCoefficientLookup(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, Integer fixedHeaderHeight) {
+    public FanEspCoefficientLookup(String name, String documentRelated, String typeName, String document, Integer height, Integer width, String image, String tableSource, String fixedHeaderHeight, String fixedBodyHeight) {
         this.name = name;
         this.documentRelated = documentRelated;
         this.typeName = typeName;
@@ -44,6 +47,7 @@ public class FanEspCoefficientLookup {
         this.image = image;
         this.tableSource = tableSource;
         this.fixedHeaderHeight = fixedHeaderHeight;
+        this.fixedBodyHeight = fixedBodyHeight;
     }
 
     public String getName() {
@@ -110,11 +114,19 @@ public class FanEspCoefficientLookup {
         this.tableSource = tableSource;
     }
 
-    public Integer getFixedHeaderHeight() {
+    public String getFixedHeaderHeight() {
         return fixedHeaderHeight;
     }
 
-    public void setFixedHeaderHeight(Integer fixedHeaderHeight) {
+    public void setFixedHeaderHeight(String fixedHeaderHeight) {
         this.fixedHeaderHeight = fixedHeaderHeight;
+    }
+
+    public String getFixedBodyHeight() {
+        return fixedBodyHeight;
+    }
+
+    public void setFixedBodyHeight(String fixedBodyHeight) {
+        this.fixedBodyHeight = fixedBodyHeight;
     }
 }
