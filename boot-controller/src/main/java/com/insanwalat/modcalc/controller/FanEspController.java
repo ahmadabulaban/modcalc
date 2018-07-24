@@ -1,10 +1,9 @@
 package com.insanwalat.modcalc.controller;
 
 import com.insanwalat.modcalc.fanesp.module.request.FanEspCalcRequest;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCalcResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientDataLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspLookupResponse;
+import com.insanwalat.modcalc.fanesp.module.request.FanEspSaveRequest;
+import com.insanwalat.modcalc.fanesp.module.response.*;
+import com.insanwalat.modcalc.fanesp.service.FanEspService;
 import com.insanwalat.modcalc.fanesp.service.impl.FanEspServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,35 @@ import java.util.List;
 public class FanEspController {
 
     @Autowired
-    private FanEspServiceImpl fanEspService;
+    private FanEspService fanEspService;
 
     @CrossOrigin
     @RequestMapping(path = "/modcalc-controller/fan-esp/calculate", method = RequestMethod.POST)
     public FanEspCalcResponse calculateFanEsp(@RequestBody FanEspCalcRequest request) {
         try {
             return fanEspService.calculate(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(path = "/modcalc-controller/fan-esp/save", method = RequestMethod.POST)
+    public FanEspSaveResponse saveFanEsp(@RequestBody FanEspSaveRequest request) {
+        try {
+            return fanEspService.save(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(path = "/modcalc-controller/fan-esp/load", method = RequestMethod.GET)
+    public List<FanEspLoadResponse> getSavedFanEsp() {
+        try {
+            return fanEspService.load();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;

@@ -11,9 +11,7 @@ public class FanEspCalcOutput {
     private String date;
     private String tx5;
     private List<DuctSectionOutput> ductSectionOutputList;
-    private String o29;
-    private Double o30;
-    private Double o31;
+    private List<FanSystemInteractionOutput> fanSystemInteractionOutputList;
     private Double o32;
     private Double o33;
     private Double o34;
@@ -24,20 +22,19 @@ public class FanEspCalcOutput {
     private Double o42;
     private Double o43;
     private Double o44;
+    private Double o45;
 
     public FanEspCalcOutput() {
     }
 
-    public FanEspCalcOutput(String project, String system, String pumpRef, String date, String tx5, List<DuctSectionOutput> ductSectionOutputList, String o29, Double o30, Double o31, Double o32, Double o33, Double o34, Double o35, Double o36, Double o37, List<AirTerminalOutput> airTerminalOutputList, Double o42, Double o43, Double o44) {
+    public FanEspCalcOutput(String project, String system, String pumpRef, String date, String tx5, List<DuctSectionOutput> ductSectionOutputList, List<FanSystemInteractionOutput> fanSystemInteractionOutputList, Double o32, Double o33, Double o34, Double o35, Double o36, Double o37, List<AirTerminalOutput> airTerminalOutputList, Double o42, Double o43, Double o44, Double o45) {
         this.project = project;
         this.system = system;
         this.pumpRef = pumpRef;
         this.date = date;
         this.tx5 = tx5;
         this.ductSectionOutputList = ductSectionOutputList;
-        this.o29 = o29;
-        this.o30 = o30;
-        this.o31 = o31;
+        this.fanSystemInteractionOutputList = fanSystemInteractionOutputList;
         this.o32 = o32;
         this.o33 = o33;
         this.o34 = o34;
@@ -48,6 +45,7 @@ public class FanEspCalcOutput {
         this.o42 = o42;
         this.o43 = o43;
         this.o44 = o44;
+        this.o45 = o45;
     }
 
     public String getProject() {
@@ -98,28 +96,12 @@ public class FanEspCalcOutput {
         this.ductSectionOutputList = ductSectionOutputList;
     }
 
-    public String getO29() {
-        return o29;
+    public List<FanSystemInteractionOutput> getFanSystemInteractionOutputList() {
+        return fanSystemInteractionOutputList;
     }
 
-    public void setO29(String o29) {
-        this.o29 = o29;
-    }
-
-    public Double getO30() {
-        return o30;
-    }
-
-    public void setO30(Double o30) {
-        this.o30 = o30;
-    }
-
-    public Double getO31() {
-        return o31;
-    }
-
-    public void setO31(Double o31) {
-        this.o31 = o31;
+    public void setFanSystemInteractionOutputList(List<FanSystemInteractionOutput> fanSystemInteractionOutputList) {
+        this.fanSystemInteractionOutputList = fanSystemInteractionOutputList;
     }
 
     public Double getO32() {
@@ -200,5 +182,13 @@ public class FanEspCalcOutput {
 
     public void setO44(Double o44) {
         this.o44 = o44;
+    }
+
+    public Double getO45() {
+        return o45;
+    }
+
+    public void setO45(Double o45) {
+        this.o45 = o45;
     }
 }

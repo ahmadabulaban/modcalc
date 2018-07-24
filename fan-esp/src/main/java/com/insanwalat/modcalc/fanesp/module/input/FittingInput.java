@@ -3,6 +3,7 @@ package com.insanwalat.modcalc.fanesp.module.input;
 import com.insanwalat.modcalc.fanesp.annotations.FieldDescription;
 
 public class FittingInput {
+    private Integer fittingSizingCriteria;
     private Integer cat;
     private String fittingDescription;
     private Double cf;
@@ -11,11 +12,20 @@ public class FittingInput {
     public FittingInput() {
     }
 
-    public FittingInput(Integer cat, String fittingDescription, Double cf, Double qf) {
+    public FittingInput(Integer fittingSizingCriteria, Integer cat, String fittingDescription, Double cf, Double qf) {
+        this.fittingSizingCriteria = fittingSizingCriteria;
         this.cat = cat;
         this.fittingDescription = fittingDescription;
         this.cf = cf;
         this.qf = qf;
+    }
+
+    public Integer getFittingSizingCriteria() {
+        return fittingSizingCriteria;
+    }
+
+    public void setFittingSizingCriteria(Integer fittingSizingCriteria) {
+        this.fittingSizingCriteria = fittingSizingCriteria;
     }
 
     public Integer getCat() {

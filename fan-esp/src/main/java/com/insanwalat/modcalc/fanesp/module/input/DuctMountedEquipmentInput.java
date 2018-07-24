@@ -1,6 +1,7 @@
 package com.insanwalat.modcalc.fanesp.module.input;
 
 public class DuctMountedEquipmentInput {
+    private Integer ductMountedEquipmentCriteria;
     private String ductMountedEquipmentDescription;
     private Double ce;
     private Double qe;
@@ -8,10 +9,19 @@ public class DuctMountedEquipmentInput {
     public DuctMountedEquipmentInput() {
     }
 
-    public DuctMountedEquipmentInput(String ductMountedEquipmentDescription, Double ce, Double qe) {
+    public DuctMountedEquipmentInput(Integer ductMountedEquipmentCriteria, String ductMountedEquipmentDescription, Double ce, Double qe) {
+        this.ductMountedEquipmentCriteria = ductMountedEquipmentCriteria;
         this.ductMountedEquipmentDescription = ductMountedEquipmentDescription;
         this.ce = ce;
         this.qe = qe;
+    }
+
+    public Integer getDuctMountedEquipmentCriteria() {
+        return ductMountedEquipmentCriteria;
+    }
+
+    public void setDuctMountedEquipmentCriteria(Integer ductMountedEquipmentCriteria) {
+        this.ductMountedEquipmentCriteria = ductMountedEquipmentCriteria;
     }
 
     public String getDuctMountedEquipmentDescription() {

@@ -3,12 +3,13 @@ package com.insanwalat.modcalc.fanesp.service.impl;
 import com.insanwalat.modcalc.fanesp.business.FanEspCalcAlgorithm;
 import com.insanwalat.modcalc.fanesp.mapper.FanEspMapper;
 import com.insanwalat.modcalc.fanesp.module.input.FanEspCalcInput;
+import com.insanwalat.modcalc.fanesp.module.input.FanEspSaveInput;
 import com.insanwalat.modcalc.fanesp.module.output.FanEspCalcOutput;
+import com.insanwalat.modcalc.fanesp.module.output.FanEspLoadOutput;
 import com.insanwalat.modcalc.fanesp.module.request.FanEspCalcRequest;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCalcResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientDataLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspLookupResponse;
+import com.insanwalat.modcalc.fanesp.module.request.FanEspSaveRequest;
+import com.insanwalat.modcalc.fanesp.module.response.*;
+import com.insanwalat.modcalc.fanesp.repository.FanEspRepository;
 import com.insanwalat.modcalc.fanesp.service.FanEspService;
 import com.insanwalat.modcalc.fanesp.utils.FanEspLookupsParser;
 import com.insanwalat.modcalc.fanesp.validation.FanEspValidation;
@@ -32,6 +33,9 @@ public class FanEspServiceImpl implements FanEspService{
     @Autowired
     private FanEspLookupsParser fanEspLookupsParser;
 
+    @Autowired
+    private FanEspRepository fanEspRepository;
+
     @Override
     public FanEspCalcResponse calculate(FanEspCalcRequest request) {
         fanEspValidation.validateFanEspCalcRequest(request);
@@ -39,6 +43,20 @@ public class FanEspServiceImpl implements FanEspService{
         FanEspCalcOutput output = algorithm.doCalculations(input);
         FanEspCalcResponse response = mapper.mapOutputToResponse(output);
         return response;
+    }
+
+    @Override
+    public FanEspSaveResponse save(FanEspSaveRequest request) {
+        FanEspSaveInput fanEspSaveInput = mapper.mapSaveRequestToSaveInput(request);
+        fanEspRepository.save(fanEspSaveInput);
+        return new FanEspSaveResponse(true);
+    }
+
+    @Override
+    public List<FanEspLoadResponse> load() {
+        List<FanEspLoadOutput> fanEspLoadOutputList = fanEspRepository.load();
+        List<FanEspLoadResponse> fanEspLoadResponseList = mapper.mapLoadOutputToLoadResponse(fanEspLoadOutputList);
+        return fanEspLoadResponseList;
     }
 
     @Override

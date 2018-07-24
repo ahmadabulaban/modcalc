@@ -25,7 +25,7 @@ public class FanEspCalcAlgorithm {
     private List<Double> sec_pd_dList;
     private List<List<Double>> pd_d_eList;
     private List<Double> sec_pd_eList;
-    private Double sec_pd_i;
+    private List<Double> sec_pd_iList;
     private List<List<Double>> pd_c_tList;
     private List<Double> sec_pd_cList;
     private Double tot_pd_sd;
@@ -35,6 +35,7 @@ public class FanEspCalcAlgorithm {
     private Double tot_pd_c;
     private Double tot_pd_at;
     private Double fan_esp;
+    private Double tot_pd_i;
 
     public FanEspCalcOutput doCalculations(FanEspCalcInput input) {
         clearAllVariables();
@@ -44,7 +45,7 @@ public class FanEspCalcAlgorithm {
         calculatePressureDropInEachFitting(input);
         calculatePressureDropInEachDampersAndObstructions(input);
         calculatePressureDropInEachDuctMountedEquipment(input);
-        calculatePressureDropInFanSystemInteraction(input);
+        calculatePressureDropInEachFanSystemInteraction(input);
         calculatePressureDropInEachSpecialComponents(input);
         calculateDuctSectionsSummary(input);
         calculatePressureDropInAllAirTerminals(input);
@@ -68,8 +69,7 @@ public class FanEspCalcAlgorithm {
         int cnt = 0;
         for (DuctSectionInput ductSectionInput : input.getDuctSectionInputList()) {
             DuctSectionOutput ductSectionOutput = new DuctSectionOutput();
-            ductSectionOutput.setO1(ductSectionInput.getStartPoint());
-            ductSectionOutput.setO2(ductSectionInput.getEndPoint());
+            ductSectionOutput.setO1(ductSectionInput.getDuctSectionId());
             ductSectionOutput.setTx1(ductSectionInput.getDimensionUnit());
             if (ductSectionInput.getShp() == 1) {
                 ductSectionOutput.setO3(ductSectionInput.getWidthInput());
@@ -81,7 +81,10 @@ public class FanEspCalcAlgorithm {
             }
             ductSectionOutput.setO6(ductSectionInput.getThicknessInput());
             ductSectionOutput.setO7(ductSectionInput.getFlowRateInput());
-            ductSectionOutput.setO8(vList.get(cnt));
+            if (uu == 1)
+                ductSectionOutput.setO8(vList.get(cnt));
+            if (uu == 2)
+                ductSectionOutput.setO8(vList.get(cnt) * 196.85039);
             if (uu == 1)
                 ductSectionOutput.setTx3("m/s");
             if (uu == 2)
@@ -184,12 +187,24 @@ public class FanEspCalcAlgorithm {
             ++cnt;
         }
         output.setDuctSectionOutputList(ductSectionOutputList);
-        output.setO29(input.getFanSystemInteractionDescription());
-        output.setO30(input.getCi());
+        List<FanSystemInteractionOutput> fanSystemInteractionOutputList = new ArrayList<>();
+        cnt = 0;
+        for (FanSystemInteractionInput fanSystemInteractionInput : input.getFanSystemInteractionInputList()) {
+            FanSystemInteractionOutput fanSystemInteractionOutput = new FanSystemInteractionOutput();
+            fanSystemInteractionOutput.setO29(fanSystemInteractionInput.getFanSystemInteractionDescription());
+            fanSystemInteractionOutput.setO30(fanSystemInteractionInput.getCi());
+            if (uu == 1)
+                fanSystemInteractionOutput.setO31(sec_pd_iList.get(cnt));
+            if (uu == 2)
+                fanSystemInteractionOutput.setO31(sec_pd_iList.get(cnt) * MULTIPLICATION_CONSTANT);
+            fanSystemInteractionOutputList.add(fanSystemInteractionOutput);
+            ++cnt;
+        }
+        output.setFanSystemInteractionOutputList(fanSystemInteractionOutputList);
         if (uu == 1)
-            output.setO31(sec_pd_i);
+            output.setO45(tot_pd_i);
         if (uu == 2)
-            output.setO31(sec_pd_i * MULTIPLICATION_CONSTANT);
+            output.setO45(tot_pd_i * MULTIPLICATION_CONSTANT);
         if (uu == 1)
             output.setO32(tot_pd_sd);
         if (uu == 2)
@@ -210,7 +225,7 @@ public class FanEspCalcAlgorithm {
             output.setO36(tot_pd_c);
         if (uu == 2)
             output.setO36(tot_pd_c * MULTIPLICATION_CONSTANT);
-        output.setO37(output.getO31() + output.getO32() + output.getO33() + output.getO34() + output.getO35() + output.getO36());
+        output.setO37(output.getO32() + output.getO33() + output.getO34() + output.getO35() + output.getO36());
         List<AirTerminalOutput> airTerminalOutputList = new ArrayList<>();
         for (AirTerminalInput airTerminalInput : input.getAirTerminalInputList()) {
             AirTerminalOutput airTerminalOutput = new AirTerminalOutput();
@@ -233,7 +248,7 @@ public class FanEspCalcAlgorithm {
     }
 
     private void calculateFanEsp(FanEspCalcInput input) {
-        fan_esp = tot_pd_sd + tot_pd_f + tot_pd_d + tot_pd_e + sec_pd_i + tot_pd_c + tot_pd_at;
+        fan_esp = tot_pd_sd + tot_pd_f + tot_pd_d + tot_pd_e + tot_pd_i + tot_pd_c + tot_pd_at;
     }
 
     private void calculatePressureDropInAllAirTerminals(FanEspCalcInput input) {
@@ -266,19 +281,23 @@ public class FanEspCalcAlgorithm {
         }
     }
 
-    private void calculatePressureDropInFanSystemInteraction(FanEspCalcInput input) {
-        if (!isNull(input.getDuctSection())) {
-            int cnt = 0;
-            double vFanSystemInteraction = (double) 0;
-            for (DuctSectionInput ductSectionInput : input.getDuctSectionInputList()) {
-                if (input.getDuctSection()
-                        .equals(ductSectionInput.getStartPoint() + ":" + ductSectionInput.getEndPoint())) {
-                    vFanSystemInteraction = vList.get(cnt);
-                    break;
+    private void calculatePressureDropInEachFanSystemInteraction(FanEspCalcInput input) {
+        if (!isNull(input.getFanSystemInteractionInputList())) {
+            for (FanSystemInteractionInput fanSystemInteractionInput : input.getFanSystemInteractionInputList()) {
+                int cnt = 0;
+                double vFanSystemInteraction = (double) 0;
+                for (DuctSectionInput ductSectionInput : input.getDuctSectionInputList()) {
+                    if (fanSystemInteractionInput.getDuctSection()
+                            .equals(ductSectionInput.getDuctSectionId())) {
+                        vFanSystemInteraction = vList.get(cnt);
+                        break;
+                    }
+                    ++cnt;
                 }
-                ++cnt;
+                double sec_pd_i = equations.fit_pd(vFanSystemInteraction, rho, fanSystemInteractionInput.getCi());
+                tot_pd_i += sec_pd_i;
+                sec_pd_iList.add(sec_pd_i);
             }
-            sec_pd_i = equations.fit_pd(vFanSystemInteraction, rho, input.getCi());
         }
     }
 
@@ -376,7 +395,7 @@ public class FanEspCalcAlgorithm {
         sec_pd_dList = new ArrayList<>();
         pd_d_eList = new ArrayList<>();
         sec_pd_eList = new ArrayList<>();
-        sec_pd_i = (double) 0;
+        sec_pd_iList = new ArrayList<>();
         pd_c_tList = new ArrayList<>();
         sec_pd_cList = new ArrayList<>();
         tot_pd_sd = (double) 0;
@@ -386,5 +405,6 @@ public class FanEspCalcAlgorithm {
         tot_pd_c = (double) 0;
         tot_pd_at = (double) 0;
         fan_esp = (double) 0;
+        tot_pd_i = (double) 0;
     }
 }

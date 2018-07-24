@@ -1,10 +1,8 @@
 package com.insanwalat.modcalc.controller;
 
 import com.insanwalat.modcalc.fanesp.module.request.FanEspCalcRequest;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCalcResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientDataLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspCoefficientLookupResponse;
-import com.insanwalat.modcalc.fanesp.module.response.FanEspLookupResponse;
+import com.insanwalat.modcalc.fanesp.module.request.FanEspSaveRequest;
+import com.insanwalat.modcalc.fanesp.module.response.*;
 import com.insanwalat.modcalc.fanesp.service.impl.FanEspServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +19,28 @@ public class FanEspController {
     @RequestMapping(path = "/fan-esp/calculate", method = RequestMethod.POST)
     public FanEspCalcResponse calculateFanEsp(@RequestBody FanEspCalcRequest request) {
         return fanEspService.calculate(request);
+    }
+
+    @CrossOrigin
+    @RequestMapping(path = "/fan-esp/save", method = RequestMethod.POST)
+    public FanEspSaveResponse saveFanEsp(@RequestBody FanEspSaveRequest request) {
+        try {
+            return fanEspService.save(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @CrossOrigin
+    @RequestMapping(path = "/fan-esp/load", method = RequestMethod.GET)
+    public List<FanEspLoadResponse> getSavedFanEsp() {
+        try {
+            return fanEspService.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @CrossOrigin

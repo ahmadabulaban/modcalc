@@ -4,8 +4,7 @@ import java.util.List;
 
 public class DuctSectionInput {
 
-    private String startPoint;
-    private String endPoint;
+    private String ductSectionId;
     private Double flowRateInput;
     private Double q;
     private String rateUnit;
@@ -31,9 +30,8 @@ public class DuctSectionInput {
     public DuctSectionInput() {
     }
 
-    public DuctSectionInput(String startPoint, String endPoint, Double flowRateInput, Double q, String rateUnit, Double lengthInput, Double length, String lengthUnit, Integer shp, Integer fun, Double ductDiameterInput, Double d, String dimensionUnit, Double widthInput, Double w, Double heightInput, Double h, Double thicknessInput, Double t, List<FittingInput> fittingInputList, List<DampersAndObstructionsInput> dampersAndObstructionsInputList, List<DuctMountedEquipmentInput> ductMountedEquipmentInputList, List<SpecialComponentInput> specialComponentInputList) {
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
+    public DuctSectionInput(String ductSectionId, Double flowRateInput, Double q, String rateUnit, Double lengthInput, Double length, String lengthUnit, Integer shp, Integer fun, Double ductDiameterInput, Double d, String dimensionUnit, Double widthInput, Double w, Double heightInput, Double h, Double thicknessInput, Double t, List<FittingInput> fittingInputList, List<DampersAndObstructionsInput> dampersAndObstructionsInputList, List<DuctMountedEquipmentInput> ductMountedEquipmentInputList, List<SpecialComponentInput> specialComponentInputList) {
+        this.ductSectionId = ductSectionId;
         this.flowRateInput = flowRateInput;
         this.q = q;
         this.rateUnit = rateUnit;
@@ -57,20 +55,12 @@ public class DuctSectionInput {
         this.specialComponentInputList = specialComponentInputList;
     }
 
-    public String getStartPoint() {
-        return startPoint;
+    public String getDuctSectionId() {
+        return ductSectionId;
     }
 
-    public void setStartPoint(String startPoint) {
-        this.startPoint = startPoint;
-    }
-
-    public String getEndPoint() {
-        return endPoint;
-    }
-
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
+    public void setDuctSectionId(String ductSectionId) {
+        this.ductSectionId = ductSectionId;
     }
 
     public Double getFlowRateInput() {

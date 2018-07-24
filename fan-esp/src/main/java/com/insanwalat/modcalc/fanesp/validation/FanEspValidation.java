@@ -28,8 +28,9 @@ public class FanEspValidation {
         validateEps(request);
         validateDuctSectionList(request);
         validateEachDuctSection(request);
-        validateDuctSectionsStartAndEndPoints(request);
-        validateFanSystemInteraction(request);
+        validateDuctSectionsIds(request);
+        validateFanSystemInteractionList(request);
+        validateEachFanSystemInteraction(request);
         validateAirTerminals(request);
         validateFanRate(request);
     }
@@ -40,52 +41,53 @@ public class FanEspValidation {
     }
 
     private void validateAirTerminals(FanEspCalcRequest request) {
-        if(isNull(request.getAirTerminalList()))
-            throw new InvalidFanEspCalcInputException("Null Air Terminal List");
-        if(request.getAirTerminalList().isEmpty())
-            throw new InvalidFanEspCalcInputException("Empty Air Terminal List");
-        for (AirTerminal airTerminal: request.getAirTerminalList()) {
-            validateEachAirTerminal(airTerminal);
+        if (!isNull(request.getAirTerminalList())) {
+            for (AirTerminal airTerminal : request.getAirTerminalList()) {
+                validateEachAirTerminal(airTerminal);
+            }
         }
     }
 
     private void validateEachAirTerminal(AirTerminal airTerminal) {
-        if(isNull(airTerminal.getAirTerminalDescription()) || airTerminal.getAirTerminalDescription().trim().isEmpty())
+        if (isNull(airTerminal.getAirTerminalDescription()) || airTerminal.getAirTerminalDescription().trim().isEmpty())
             throw new InvalidFanEspCalcInputException("Invalid Air Terminal Type");
-        if(isNull(airTerminal.getModel()) || airTerminal.getModel().trim().isEmpty())
+        if (isNull(airTerminal.getModel()) || airTerminal.getModel().trim().isEmpty())
             throw new InvalidFanEspCalcInputException("Invalid Air Terminal Model");
-        if(isNull(airTerminal.getTerminalRateInput()))
+        if (isNull(airTerminal.getTerminalRateInput()))
             throw new InvalidFanEspCalcInputException("Invalid Air Terminal Rate Input");
-        if(isNull(airTerminal.getTerminalPressureDropInput()))
+        if (isNull(airTerminal.getTerminalPressureDropInput()))
             throw new InvalidFanEspCalcInputException("Invalid Air Terminal Pressure Loss Input");
     }
 
-    private void validateFanSystemInteraction(FanEspCalcRequest request) {
-        FanSystemInteraction fanSystemInteraction = request.getFanSystemInteraction();
-        if(!isNull(fanSystemInteraction)) {
-            String ductSectionPoints = fanSystemInteraction.getDuctSection();
-            if (request.getDuctSectionList().stream()
-                    .noneMatch(e -> ductSectionPoints.equals(e.getStartPoint() + ":" + e.getEndPoint())))
-                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction duct section");
-            DuctSection ductSection = request.getDuctSectionList()
-                    .stream().filter(e -> ductSectionPoints.equals(e.getStartPoint() + ":" + e.getEndPoint()))
-                    .findFirst().get();
-            Integer sizingCriteria = fanSystemInteraction.getFanSystemInteractionCriteria();
-            if (isNull(sizingCriteria))
-                throw new InvalidFanEspCalcInputException("Null Fan System Interaction sizing criteria");
-            if (!(sizingCriteria == 1 || sizingCriteria == 2))
-                throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction sizing criteria");
-            validateFanSystemInteractionDescriptionAndCi(fanSystemInteraction,ductSection);
+    private void validateEachFanSystemInteraction(FanEspCalcRequest request) {
+        if (!isNull(request.getFanSystemInteractionList())) {
+            for (FanSystemInteraction fanSystemInteraction : request.getFanSystemInteractionList()) {
+                String ductSectionId = fanSystemInteraction.getDuctSection();
+                if (isNull(ductSectionId))
+                    throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction duct section");
+                if (request.getDuctSectionList().stream()
+                        .noneMatch(e -> ductSectionId.equals(e.getDuctSectionId())))
+                    throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction duct section");
+                DuctSection ductSection = request.getDuctSectionList()
+                        .stream().filter(e -> ductSectionId.equals(e.getDuctSectionId()))
+                        .findFirst().get();
+                Integer sizingCriteria = fanSystemInteraction.getFanSystemInteractionCriteria();
+                if (isNull(sizingCriteria))
+                    throw new InvalidFanEspCalcInputException("Null Fan System Interaction sizing criteria");
+                if (!(sizingCriteria == 1 || sizingCriteria == 2))
+                    throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction sizing criteria");
+                validateFanSystemInteractionDescriptionAndCi(fanSystemInteraction, ductSection);
+            }
         }
     }
 
-    private void validateFanSystemInteractionDescriptionAndCi(FanSystemInteraction fanSystemInteraction,DuctSection ductSection) {
+    private void validateFanSystemInteractionDescriptionAndCi(FanSystemInteraction fanSystemInteraction, DuctSection ductSection) {
         String fanSystemInteractionDescription = fanSystemInteraction.getFanSystemInteractionDescription();
         Double ci = fanSystemInteraction.getCi();
-        if(isNull(fanSystemInteractionDescription)
+        if (isNull(fanSystemInteractionDescription)
                 || fanSystemInteractionDescription.trim().isEmpty())
             throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Description");
-        if(isNull(ci))
+        if (isNull(ci))
             throw new InvalidFanEspCalcInputException("Invalid Fan System Interaction Coefficient");
         if (fanSystemInteraction.getFanSystemInteractionCriteria() == 1) {
             Integer shp = ductSection.getShp();
@@ -114,10 +116,23 @@ public class FanEspValidation {
         }
     }
 
+    private void validateFanSystemInteractionList(FanEspCalcRequest request) {
+        if (!isNull(request.getFanSystemInteractionList())) {
+            if (request.getFanSystemInteractionList().size() > 2)
+                throw new InvalidFanEspCalcInputException("Fan System Interaction List exceed the maximum length");
+            if (request.getFanSystemInteractionList().size() > request.getDuctSectionList().size())
+                throw new InvalidFanEspCalcInputException("Fan System Interaction List exceed the Duct Section List length ");
+            Set<String> ductSections = request.getFanSystemInteractionList().stream()
+                    .map(FanSystemInteraction::getDuctSection).collect(Collectors.toSet());
+            if (ductSections.size() != request.getFanSystemInteractionList().size())
+                throw new InvalidFanEspCalcInputException("Similar Duct Sections In Fan System Interaction List");
+        }
+    }
+
     private void validateEachDuctSection(FanEspCalcRequest request) {
         List<DuctSection> ductSectionList = request.getDuctSectionList();
         for (DuctSection ductSection : ductSectionList) {
-            validateDuctSectionPoints(ductSection);
+            validateDuctSectionId(ductSection);
             validateRateInput(request, ductSection);
             validateLengthInput(request, ductSection);
             validateShp(ductSection);
@@ -137,14 +152,14 @@ public class FanEspValidation {
             if (!isNull(dampersAndObstructionsList) && !dampersAndObstructionsList.isEmpty()) {
                 for (DampersAndObstructions dampersAndObstructions : dampersAndObstructionsList) {
                     validateDampersAndObstructionsSizingCriteria(dampersAndObstructions);
-                    validateDampersAndObstructionsDetails(dampersAndObstructions,ductSection);
+                    validateDampersAndObstructionsDetails(dampersAndObstructions, ductSection);
                 }
             }
             List<DuctMountedEquipment> ductMountedEquipmentList = ductSection.getDuctMountedEquipmentList();
             if (!isNull(ductMountedEquipmentList) && !ductMountedEquipmentList.isEmpty()) {
                 for (DuctMountedEquipment ductMountedEquipment : ductMountedEquipmentList) {
                     validateDuctMountedEquipmentSizingCriteria(ductMountedEquipment);
-                    validateDuctMountedEquipmentDetails(ductMountedEquipment,ductSection);
+                    validateDuctMountedEquipmentDetails(ductMountedEquipment, ductSection);
                 }
             }
             List<SpecialComponent> specialComponentList = ductSection.getSpecialComponentList();
@@ -169,7 +184,7 @@ public class FanEspValidation {
 
     }
 
-    private void validateDuctMountedEquipmentDetails(DuctMountedEquipment ductMountedEquipment,DuctSection ductSection) {
+    private void validateDuctMountedEquipmentDetails(DuctMountedEquipment ductMountedEquipment, DuctSection ductSection) {
         String ductMountedEquipmentDescription = ductMountedEquipment.getDuctMountedEquipmentDescription();
         Double ce = ductMountedEquipment.getCe();
         Double qe = ductMountedEquipment.getQe();
@@ -329,7 +344,7 @@ public class FanEspValidation {
         if (request.getUnits().getUu() == 1)
             t = ductThicknessInput;
         else
-            t = ductThicknessInput / 25.4;
+            t = ductThicknessInput * 25.4;
         if (!(t >= 0.1 && t <= 5))
             throw new InvalidFanEspCalcInputException("Invalid duct thickness input value");
     }
@@ -343,7 +358,7 @@ public class FanEspValidation {
             if (request.getUnits().getUu() == 1)
                 h = ductHeightInput;
             else
-                h = ductHeightInput / 25.4;
+                h = ductHeightInput * 25.4;
             if (!(h >= 10 && h <= 4000))
                 throw new InvalidFanEspCalcInputException("Invalid duct height input value");
         }
@@ -358,7 +373,7 @@ public class FanEspValidation {
             if (request.getUnits().getUu() == 1)
                 w = ductWidthInput;
             else
-                w = ductWidthInput / 25.4;
+                w = ductWidthInput * 25.4;
             if (!(w >= 10 && w <= 4000))
                 throw new InvalidFanEspCalcInputException("Invalid duct width input value");
         }
@@ -373,7 +388,7 @@ public class FanEspValidation {
             if (request.getUnits().getUu() == 1)
                 d = ductDiameterInput;
             else
-                d = ductDiameterInput / 25.4;
+                d = ductDiameterInput * 25.4;
             if (!(d >= 10 && d <= 3000))
                 throw new InvalidFanEspCalcInputException("Invalid duct diameter input value");
         }
@@ -419,23 +434,21 @@ public class FanEspValidation {
             throw new InvalidFanEspCalcInputException("Invalid rate input value");
     }
 
-    private void validateDuctSectionPoints(DuctSection ductSection){
-        if(isNull(ductSection.getStartPoint()) || ductSection.getStartPoint().trim().isEmpty())
-            throw new InvalidFanEspCalcInputException("Invalid Duct Section Start Point");
-        if(isNull(ductSection.getEndPoint()) || ductSection.getEndPoint().trim().isEmpty())
-            throw new InvalidFanEspCalcInputException("Invalid Duct Section End Point");
+    private void validateDuctSectionId(DuctSection ductSection) {
+        if (isNull(ductSection.getDuctSectionId()) || ductSection.getDuctSectionId().trim().isEmpty())
+            throw new InvalidFanEspCalcInputException("Invalid Duct Section Id");
     }
 
-    private void validateDuctSectionsStartAndEndPoints(FanEspCalcRequest request) {
+    private void validateDuctSectionsIds(FanEspCalcRequest request) {
         List<DuctSection> ductSectionList = request.getDuctSectionList();
-        Set<String> startPoints = new HashSet<>();
-        ductSectionList.forEach(d -> startPoints.add(d.getStartPoint()));
-        if (startPoints.size() != ductSectionList.size())
-            throw new InvalidFanEspCalcInputException("Similar start points");
-        Set<String> endPoints = new HashSet<>();
-        ductSectionList.forEach(d -> endPoints.add(d.getEndPoint()));
-        if (endPoints.size() != ductSectionList.size())
-            throw new InvalidFanEspCalcInputException("Similar end points");
+        for (int i = 0; i < ductSectionList.size(); ++i) {
+            for (int j = 0; j < ductSectionList.size(); ++j) {
+                if (i == j)
+                    continue;
+                if (ductSectionList.get(i).getDuctSectionId().equalsIgnoreCase(ductSectionList.get(j).getDuctSectionId()))
+                    throw new InvalidFanEspCalcInputException("Similar Sections Ids");
+            }
+        }
     }
 
     private void validateDuctSectionList(FanEspCalcRequest request) {

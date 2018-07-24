@@ -3,6 +3,7 @@ package com.insanwalat.modcalc.fanesp.module.input;
 public class SpecialComponentInput {
 
     private String specialComponentDescription;
+    private Double componentPressureDropInput;
     private Double pd_c;
     private String pressureUnit;
     private Double qc;
@@ -10,8 +11,9 @@ public class SpecialComponentInput {
     public SpecialComponentInput() {
     }
 
-    public SpecialComponentInput(String specialComponentDescription, Double pd_c, String pressureUnit, Double qc) {
+    public SpecialComponentInput(String specialComponentDescription, Double componentPressureDropInput, Double pd_c, String pressureUnit, Double qc) {
         this.specialComponentDescription = specialComponentDescription;
+        this.componentPressureDropInput = componentPressureDropInput;
         this.pd_c = pd_c;
         this.pressureUnit = pressureUnit;
         this.qc = qc;
@@ -23,6 +25,14 @@ public class SpecialComponentInput {
 
     public void setSpecialComponentDescription(String specialComponentDescription) {
         this.specialComponentDescription = specialComponentDescription;
+    }
+
+    public Double getComponentPressureDropInput() {
+        return componentPressureDropInput;
+    }
+
+    public void setComponentPressureDropInput(Double componentPressureDropInput) {
+        this.componentPressureDropInput = componentPressureDropInput;
     }
 
     public Double getPd_c() {

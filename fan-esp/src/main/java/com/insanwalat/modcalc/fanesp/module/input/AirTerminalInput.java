@@ -5,17 +5,21 @@ public class AirTerminalInput {
     private String airTerminalDescription;
     private String model;
     private Double terminalRateInput;
+    private String terminalRateUnit;
     private Double terminalPressureDropInput;
+    private String terminalPressureUnit;
     private Double pd_at;
 
     public AirTerminalInput() {
     }
 
-    public AirTerminalInput(String airTerminalDescription, String model, Double terminalRateInput, Double terminalPressureDropInput, Double pd_at) {
+    public AirTerminalInput(String airTerminalDescription, String model, Double terminalRateInput, String terminalRateUnit, Double terminalPressureDropInput, String terminalPressureUnit, Double pd_at) {
         this.airTerminalDescription = airTerminalDescription;
         this.model = model;
         this.terminalRateInput = terminalRateInput;
+        this.terminalRateUnit = terminalRateUnit;
         this.terminalPressureDropInput = terminalPressureDropInput;
+        this.terminalPressureUnit = terminalPressureUnit;
         this.pd_at = pd_at;
     }
 
@@ -43,12 +47,28 @@ public class AirTerminalInput {
         this.terminalRateInput = terminalRateInput;
     }
 
+    public String getTerminalRateUnit() {
+        return terminalRateUnit;
+    }
+
+    public void setTerminalRateUnit(String terminalRateUnit) {
+        this.terminalRateUnit = terminalRateUnit;
+    }
+
     public Double getTerminalPressureDropInput() {
         return terminalPressureDropInput;
     }
 
     public void setTerminalPressureDropInput(Double terminalPressureDropInput) {
         this.terminalPressureDropInput = terminalPressureDropInput;
+    }
+
+    public String getTerminalPressureUnit() {
+        return terminalPressureUnit;
+    }
+
+    public void setTerminalPressureUnit(String terminalPressureUnit) {
+        this.terminalPressureUnit = terminalPressureUnit;
     }
 
     public Double getPd_at() {

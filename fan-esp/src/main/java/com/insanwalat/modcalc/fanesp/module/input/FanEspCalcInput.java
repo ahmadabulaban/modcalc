@@ -16,15 +16,14 @@ public class FanEspCalcInput {
     private String lengthUnit;
 
     private Double temperature;
+    private Double temperatureInput;
     private String temperatureUnit;
 
     private Double eps;
 
     private List<DuctSectionInput> ductSectionInputList;
 
-    private String ductSection;
-    private String fanSystemInteractionDescription;
-    private Double ci;
+    private List<FanSystemInteractionInput> fanSystemInteractionInputList;
 
     private List<AirTerminalInput> airTerminalInputList;
 
@@ -34,7 +33,7 @@ public class FanEspCalcInput {
     public FanEspCalcInput() {
     }
 
-    public FanEspCalcInput(String project, String system, String pumpRef, Integer uu, String unitSystem, Double uf, String flowRateUnit, Double ul, String lengthUnit, Double temperature, String temperatureUnit, Double eps, List<DuctSectionInput> ductSectionInputList, String ductSection, String fanSystemInteractionDescription, Double ci, List<AirTerminalInput> airTerminalInputList, Double fanFlowRateInput, Double q) {
+    public FanEspCalcInput(String project, String system, String pumpRef, Integer uu, String unitSystem, Double uf, String flowRateUnit, Double ul, String lengthUnit, Double temperature, Double temperatureInput, String temperatureUnit, Double eps, List<DuctSectionInput> ductSectionInputList, List<FanSystemInteractionInput> fanSystemInteractionInputList, List<AirTerminalInput> airTerminalInputList, Double fanFlowRateInput, Double q) {
         this.project = project;
         this.system = system;
         this.pumpRef = pumpRef;
@@ -45,12 +44,11 @@ public class FanEspCalcInput {
         this.ul = ul;
         this.lengthUnit = lengthUnit;
         this.temperature = temperature;
+        this.temperatureInput = temperatureInput;
         this.temperatureUnit = temperatureUnit;
         this.eps = eps;
         this.ductSectionInputList = ductSectionInputList;
-        this.ductSection = ductSection;
-        this.fanSystemInteractionDescription = fanSystemInteractionDescription;
-        this.ci = ci;
+        this.fanSystemInteractionInputList = fanSystemInteractionInputList;
         this.airTerminalInputList = airTerminalInputList;
         this.fanFlowRateInput = fanFlowRateInput;
         this.q = q;
@@ -136,6 +134,14 @@ public class FanEspCalcInput {
         this.temperature = temperature;
     }
 
+    public Double getTemperatureInput() {
+        return temperatureInput;
+    }
+
+    public void setTemperatureInput(Double temperatureInput) {
+        this.temperatureInput = temperatureInput;
+    }
+
     public String getTemperatureUnit() {
         return temperatureUnit;
     }
@@ -160,28 +166,12 @@ public class FanEspCalcInput {
         this.ductSectionInputList = ductSectionInputList;
     }
 
-    public String getDuctSection() {
-        return ductSection;
+    public List<FanSystemInteractionInput> getFanSystemInteractionInputList() {
+        return fanSystemInteractionInputList;
     }
 
-    public void setDuctSection(String ductSection) {
-        this.ductSection = ductSection;
-    }
-
-    public String getFanSystemInteractionDescription() {
-        return fanSystemInteractionDescription;
-    }
-
-    public void setFanSystemInteractionDescription(String fanSystemInteractionDescription) {
-        this.fanSystemInteractionDescription = fanSystemInteractionDescription;
-    }
-
-    public Double getCi() {
-        return ci;
-    }
-
-    public void setCi(Double ci) {
-        this.ci = ci;
+    public void setFanSystemInteractionInputList(List<FanSystemInteractionInput> fanSystemInteractionInputList) {
+        this.fanSystemInteractionInputList = fanSystemInteractionInputList;
     }
 
     public List<AirTerminalInput> getAirTerminalInputList() {

@@ -5,7 +5,6 @@ import java.util.List;
 public class DuctSectionResponse {
 
     private String o1;
-    private String o2;
     private Double o3;
     private Double o4;
     private Double o5;
@@ -30,9 +29,8 @@ public class DuctSectionResponse {
     public DuctSectionResponse() {
     }
 
-    public DuctSectionResponse(String o1, String o2, Double o3, Double o4, Double o5, Double o6, String tx1, Double o7, String tx2, Double o8, String tx3, Double o88, String tx4, Double o9, List<FittingResponse> fittingResponseList, List<DampersAndObstructionsResponse> dampersAndObstructionsResponseList, List<DuctMountedEquipmentResponse> ductMountedEquipmentResponseList, List<SpecialComponentResponse> specialComponentResponseList, Double o25, Double o26, Double o27, Double o28) {
+    public DuctSectionResponse(String o1, Double o3, Double o4, Double o5, Double o6, String tx1, Double o7, String tx2, Double o8, String tx3, Double o88, String tx4, Double o9, List<FittingResponse> fittingResponseList, List<DampersAndObstructionsResponse> dampersAndObstructionsResponseList, List<DuctMountedEquipmentResponse> ductMountedEquipmentResponseList, List<SpecialComponentResponse> specialComponentResponseList, Double o25, Double o26, Double o27, Double o28) {
         this.o1 = o1;
-        this.o2 = o2;
         this.o3 = o3;
         this.o4 = o4;
         this.o5 = o5;
@@ -61,14 +59,6 @@ public class DuctSectionResponse {
 
     public void setO1(String o1) {
         this.o1 = o1;
-    }
-
-    public String getO2() {
-        return o2;
-    }
-
-    public void setO2(String o2) {
-        this.o2 = o2;
     }
 
     public Double getO3() {

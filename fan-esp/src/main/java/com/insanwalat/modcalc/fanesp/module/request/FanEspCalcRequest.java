@@ -16,7 +16,7 @@ public class FanEspCalcRequest {
 
     private List<DuctSection> ductSectionList;
 
-    private FanSystemInteraction fanSystemInteraction;
+    private List<FanSystemInteraction> fanSystemInteractionList;
 
     private List<AirTerminal> airTerminalList;
 
@@ -25,13 +25,13 @@ public class FanEspCalcRequest {
     public FanEspCalcRequest() {
     }
 
-    public FanEspCalcRequest(PumpInformation pumpInformation, Units units, AirTemperature airTemperature, DuctType ductType, List<DuctSection> ductSectionList, FanSystemInteraction fanSystemInteraction, List<AirTerminal> airTerminalList, FanRate fanRate) {
+    public FanEspCalcRequest(PumpInformation pumpInformation, Units units, AirTemperature airTemperature, DuctType ductType, List<DuctSection> ductSectionList, List<FanSystemInteraction> fanSystemInteractionList, List<AirTerminal> airTerminalList, FanRate fanRate) {
         this.pumpInformation = pumpInformation;
         this.units = units;
         this.airTemperature = airTemperature;
         this.ductType = ductType;
         this.ductSectionList = ductSectionList;
-        this.fanSystemInteraction = fanSystemInteraction;
+        this.fanSystemInteractionList = fanSystemInteractionList;
         this.airTerminalList = airTerminalList;
         this.fanRate = fanRate;
     }
@@ -76,12 +76,12 @@ public class FanEspCalcRequest {
         this.ductSectionList = ductSectionList;
     }
 
-    public FanSystemInteraction getFanSystemInteraction() {
-        return fanSystemInteraction;
+    public List<FanSystemInteraction> getFanSystemInteractionList() {
+        return fanSystemInteractionList;
     }
 
-    public void setFanSystemInteraction(FanSystemInteraction fanSystemInteraction) {
-        this.fanSystemInteraction = fanSystemInteraction;
+    public void setFanSystemInteractionList(List<FanSystemInteraction> fanSystemInteractionList) {
+        this.fanSystemInteractionList = fanSystemInteractionList;
     }
 
     public List<AirTerminal> getAirTerminalList() {
