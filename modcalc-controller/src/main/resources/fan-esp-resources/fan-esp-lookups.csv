@@ -14,11 +14,11 @@ ul|ft|0.3048|false|2
 ul|inch|0.0254|false|2
 temperatureUnit|C|1|true|1
 temperatureUnit|F|2|true|2
-eps|Galvanized steel, longitudinal seams < 4 ft (1.2m) joints|0.000152439024390244|true|0
+eps|Galvanized steel, longitudinal seams, ≥ 4 ft (1.2m) joints|0.0000914634146341463|true|0
 eps|Uncoated carbon steel, clean|0.0000304878048780488|false|0
 eps|PVC plastic pipe|0.0000304878048780488|false|0
 eps|Aluminum|0.0000304878048780488|false|0
-eps|Galvanized steel, longitudinal seams, ≥ 4 ft (1.2m) joints|0.0000914634146341463|false|0
+eps|Galvanized steel, longitudinal seams < 4 ft (1.2m) joints|0.000152439024390244|false|0
 eps|Galvanized steel, continuously rolled, spiral seams, 10 ft (3m) joints|0.0000914634146341463|false|0
 eps|Galvanized steel, spiral seam with 1, 2, and 3 ribs, 12 ft (3.6m) joints|0.0000914634146341463|false|0
 eps|Galvanized steel, spiral, corrugated, 10 ft (3m) joints|0.0000914634146341463|false|0

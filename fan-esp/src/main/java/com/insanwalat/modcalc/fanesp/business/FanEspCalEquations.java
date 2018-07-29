@@ -33,7 +33,7 @@ public class FanEspCalEquations {
     public Double hyd_dia(Integer shp, Double w, Double h, Double d, Double t) {
         Double Dh = (double) 0;
         if (shp == 1) {
-            Dh = 2 * (w - 2 * t) * (h - 2 * t) / (w + h - 4 * t);
+            Dh = 1.3 * pow(((w - 2 * t) * (h - 2 * t)), 0.625) / pow((w + h - 4 * t), 0.25);
         }
         if (shp == 2) {
             Dh = d - 2 * t;

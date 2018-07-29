@@ -12,7 +12,6 @@
         <module>duct-sizer</module>
         <module>modcalc-controller</module>
         <module>fan-esp</module>
-        <module>boot-controller</module>
     </modules>
 
     <properties>

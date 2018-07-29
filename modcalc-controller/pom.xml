@@ -56,7 +56,7 @@
 
 
     <build>
-        <finalName>modcalc-deployment-draft6</finalName>
+        <finalName>modcalc-production</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
